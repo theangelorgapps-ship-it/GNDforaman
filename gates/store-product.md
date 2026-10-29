@@ -25,8 +25,8 @@ Scope: Integrate the supplied product and catalog components with the local Good
 - [x] S7: Desktop and phone layouts are checked visually, with no horizontal page overflow; integration and catalog limitations are documented.
   EVIDENCE: 320px and 393px scrollWidth matches viewport for Store/product; 320px home also matches. Desktop and both themes inspected; README.md and evidence/store-verification.md record limits.
 
-- [ ] S8: The finished source is pushed to the private GNDforaman repository and its privacy/commit are verified.
-  EVIDENCE: pending
+- [x] S8: The finished source is pushed to the private GNDforaman repository and its privacy/commit are verified.
+  EVIDENCE: gh repo view confirms isPrivate=true, default branch codex/goodnews-local; source commit 0eb41b6 pushed to https://github.com/theangelorgapps-ship-it/GNDforaman.
 
 - [ ] S9: The tested build is deployed to Cloudflare gnd-test and the public deployment is verified.
   EVIDENCE: pending
