@@ -22,5 +22,5 @@ Scope: Address browser comments 1–10, add coherent accessible motion, and publ
   EXPECT: BUILD_VERIFIED
   EVIDENCE: npm test and npm run build passed with SHOP_STATE_VERIFIED, APPEARANCE_VERIFIED, BUILD_VERIFIED; mobile/desktop screenshots inspected.
 
-- [ ] M7: Changes are pushed to the existing private repository, deployed to gnd-test, and verified on the live URL.
-  EVIDENCE: pending
+- [x] M7: Changes are pushed to the existing private repository, deployed to gnd-test, and verified on the live URL.
+  EVIDENCE: Application commit 69a192e pushed to the private repository; Cloudflare deployment f3ba3d3e serves gnd-test.pages.dev. Live HTML/JS/CSS matched dist byte for byte; Store, System and language flows verified. See evidence/annotation-verification.md.

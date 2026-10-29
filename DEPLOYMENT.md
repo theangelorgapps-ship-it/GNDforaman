@@ -4,6 +4,8 @@ Source: private GitHub repository `theangelorgapps-ship-it/GNDforaman`, branch `
 Target: Cloudflare Pages project `gnd-test`, in Theangelorgapps@gmail.com's account.
 
 Live URL: https://gnd-test.pages.dev
+Latest verified refinement deployment: https://f3ba3d3e.gnd-test.pages.dev, application source commit `69a192e`. Details: `evidence/annotation-verification.md`.
+
 First verified deployment: https://bc8cc824.gnd-test.pages.dev, application source commit `2f52eb3`.
 
 Project creation used `wrangler pages project create gnd-test --production-branch codex/goodnews-local --force` because Wrangler 4.155 otherwise delegates new projects to Workers. The project now exists; normal Pages deployment commands require no force option.

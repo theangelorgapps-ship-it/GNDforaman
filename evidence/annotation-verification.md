@@ -45,4 +45,14 @@ Screenshots: `annotations-home-phone.png`, `annotations-home-desktop.png`, `anno
 
 ## Release
 
-Pending push and deployment confirmation.
+Application source commit: `69a192e` (main refinement `46ced79`, historical availability copy `87572d2`). Pushed successfully to `origin/codex/goodnews-local`; GitHub confirmed the repository remains private.
+
+Cloudflare production deployment: https://f3ba3d3e.gnd-test.pages.dev, served at https://gnd-test.pages.dev.
+
+Final HTTP checks confirmed that `/`, `/partnership.html`, profile artwork, `/assets/index-CRUqHR5F.js` and `/assets/index-dJcQiSXx.css` match the local production build byte for byte. Result: LIVE_BUILD_VERIFIED.
+
+Live browser checks confirmed the Store title, absence of home-preview prices/icon, 2/3 carousel position, Light/Dark/System choices, issue-triggered language selection and the official French edition link. An empty 2025 collection correctly says “No edition linked yet.” No console errors were reported. The live mobile check measured document width equal to the 446px CSS viewport. Language selection was returned to English and temporary viewport settings were reset.
+
+Production inspection caught a minifier interaction with vendor-prefix order. Placing the WebKit declaration before the standard declaration preserves both. The deployed glass button now computes to `blur(18px) saturate(1.35)`; the built stylesheet was also checked for the standard property. The post-fix live image is `annotations-live-phone.png`.
+
+The temporary verification server (session 48593) was stopped. QA tabs were closed; no ongoing verification process is required.
