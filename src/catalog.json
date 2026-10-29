@@ -1,0 +1,940 @@
+{
+  "source": "https://goodnewsdailydevotional.com/shop/",
+  "updated": "2026-10-29",
+  "products": [
+    {
+      "id": "2855",
+      "name": "GoodNews Daily Compendium Volume 1",
+      "slug": "goodnews-daily-compendium-volume-1",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-daily-compendium-volume-1/",
+      "price": 35.0,
+      "originalPrice": 35.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/2855-0.webp"
+      ],
+      "description": [
+        "The pursuit of God’s Word: unlocking spiritual riches through the GoodNews Daily Compendium. In the pursuit of a life deeply rooted in Christ, an unwavering dedication to God’s Word forms the cornerstone. The GoodNews Daily Compendium, Volume 1 provides an unparalleled resource for this journey, expertly organizing the gospel into thematic sections for enriched study and easy understanding.",
+        "This compendium serves as an indispensable resource for every believer’s spiritual growth. Its comprehensive collection of insightful articles is infused with divine wisdom, guiding readers to illuminate their paths, renew their dedication to scripture, and strengthen their relationship with God. For Christian leaders, this volume becomes a vital tool, aiding in the preparation of compelling Bible studies for fellowships and meetings. The all-encompassing Word-based teachings are captured in the following sections:",
+        "•⁠ ⁠Prosperity and Abundance •⁠ ⁠Keys to Divine Health •⁠ ⁠God-Kind of Faith •⁠ ⁠Being an Effective Soul Winner •⁠ ⁠Transformative Power of Prayer",
+        "The compendium not only offers profound teachings but also includes a user-friendly index, facilitating quick access to specific articles that address individual interests and spiritual needs. Each revelation and lesson contained within is meticulously written to bless and enrich the reader’s understanding through the Word of God, providing the spiritual nourishment necessary to navigate every season of life confidently.",
+        "•⁠ ⁠Prophet Uebert Angel"
+      ],
+      "categories": [
+        {
+          "value": "books",
+          "label": "Books"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3222",
+      "name": "GoodNews Daily T-Shirt",
+      "slug": "goodnews-daily-t-shirt",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-daily-t-shirt/",
+      "price": 20.0,
+      "originalPrice": 20.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3222-0.webp"
+      ],
+      "description": [
+        "Show your faith and style with the GoodNews Daily T-Shirt! Designed to inspire and share the Gospel, this t-shirt is a perfect way to represent the GoodNews Daily community in your everyday life."
+      ],
+      "categories": [
+        {
+          "value": "t-shirts",
+          "label": "T-Shirts"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Sizes",
+          "options": [
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "id": "3223",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "S"
+            }
+          ]
+        },
+        {
+          "id": "3224",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "M"
+            }
+          ]
+        },
+        {
+          "id": "3225",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "L"
+            }
+          ]
+        },
+        {
+          "id": "3226",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "XL"
+            }
+          ]
+        },
+        {
+          "id": "3227",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "XXL"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3217",
+      "name": "GoodNews Explorers Kids T-shirt",
+      "slug": "goodnews-explorers-t-shirt",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-t-shirt/",
+      "price": 15.0,
+      "originalPrice": 15.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3217-0.webp"
+      ],
+      "description": [
+        "Let your little ones wear their faith proudly with the GoodNews Explorers Kids T-Shirt! Designed with kids in mind, this comfortable and durable tee is perfect for Sunday school, church events, or everyday adventures.",
+        "Features: Kid-Friendly Design: Fun and faith-filled, made for young explorers. Comfortable Fit: Soft and lightweight for all-day wear. Versatile: Ideal for church, school, or casual outings. Inspiring: A simple way for kids to share the Good News wherever they go. Encourage your kids to explore their faith with the GoodNews Explorers Kids T-Shirt—where style meets the GoodNews!"
+      ],
+      "categories": [
+        {
+          "value": "kids",
+          "label": "Kids"
+        },
+        {
+          "value": "t-shirts",
+          "label": "T-Shirts"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Sizes",
+          "options": [
+            "3-4 yrs",
+            "5-6 yrs",
+            "7-8 yrs",
+            "9-11 yrs"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "id": "3218",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "3-4 yrs"
+            }
+          ]
+        },
+        {
+          "id": "3219",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "5-6 yrs"
+            }
+          ]
+        },
+        {
+          "id": "3220",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "7-8 yrs"
+            }
+          ]
+        },
+        {
+          "id": "3221",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "9-11 yrs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3919",
+      "name": "GoodNews Explorers Kids T-shirt Easter Edition",
+      "slug": "goodnews-explorers-t-shirt-easter-edition",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-t-shirt-easter-edition/",
+      "price": 15.0,
+      "originalPrice": 15.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3919-0.webp"
+      ],
+      "description": [
+        "Let your little ones wear their faith proudly with the GoodNews Explorers Kids T-Shirt! Designed with kids in mind, this comfortable and durable tee is perfect for Sunday school, church events, or everyday adventures.",
+        "Features: Kid-Friendly Design: Fun and faith-filled, made for young explorers. Comfortable Fit: Soft and lightweight for all-day wear. Versatile: Ideal for church, school, or casual outings. Inspiring: A simple way for kids to share the Good News wherever they go. Encourage your kids to explore their faith with the GoodNews Explorers Kids T-Shirt—where style meets the GoodNews!"
+      ],
+      "categories": [
+        {
+          "value": "kids",
+          "label": "Kids"
+        },
+        {
+          "value": "t-shirts",
+          "label": "T-Shirts"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Sizes",
+          "options": [
+            "3-4 yrs",
+            "5-6 yrs",
+            "7-8 yrs",
+            "9-11 yrs"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "id": "3920",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "3-4 yrs"
+            }
+          ]
+        },
+        {
+          "id": "3921",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "5-6 yrs"
+            }
+          ]
+        },
+        {
+          "id": "3922",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "7-8 yrs"
+            }
+          ]
+        },
+        {
+          "id": "3923",
+          "attributes": [
+            {
+              "name": "Sizes",
+              "value": "9-11 yrs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2913",
+      "name": "GoodNews Explorers Book (Volume 1)",
+      "slug": "goodnews-explorers-book-volume-1",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-book-volume-1/",
+      "price": 12.0,
+      "originalPrice": 12.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/2913-0.webp"
+      ],
+      "description": [
+        "Discover God’s Love, One Day At A Time! ‘Exploring God’s Word Every Day’ by Prophet Uebert Angel invites young hearts to dive into the Bible and find God’s love in their daily lives. Designed for children aged 3-12 years, this book brings Bible teachings to life with easy-to-understand stories, colorful illustrations, and memorable lessons. Each page encourages kids to learn about faith, kindness, and joy through God’s Word, making every day an opportunity to grow closer to Him. Perfect for family time, bedtime stories, or quiet moments of reflection, this book helps kids build a strong foundation of faith in a fun and engaging way."
+      ],
+      "categories": [
+        {
+          "value": "books",
+          "label": "Books"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3911",
+      "name": "GoodNews Explorers Book Easter Edition (Volume 2)",
+      "slug": "goodnews-explorers-book-volume-2-easter-edition",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-book-volume-2-easter-edition/",
+      "price": 12.0,
+      "originalPrice": 12.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3911-0.webp"
+      ],
+      "description": [
+        "Discover The True Meaning of Easter Easter is the story of the greatest love ever shown! The True Meaning of Easter takes children on an exciting journey through the life, sacrifice, and resurrection of Jesus Christ. With simple storytelling and engaging Bible verses, this book helps young hearts understand why Jesus Christ came, what happened on the cross, and the victory of His resurrection. Perfect for children aged 3-12 years, it’s a wonderful resource for families, Sunday schools, and anyone wanting to share the good news of Easter in a fun and easy-to-understand way!"
+      ],
+      "categories": [
+        {
+          "value": "books",
+          "label": "Books"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3215",
+      "name": "GoodNews Daily Water Flask",
+      "slug": "goodnews-daily-water-flask",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-daily-water-flask/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3215-0.webp"
+      ],
+      "description": [],
+      "categories": [
+        {
+          "value": "bottles-flask",
+          "label": "Bottles/Flask"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3216",
+      "name": "GoodNews Daily Notebook – Navy",
+      "slug": "goodnews-daily-notebook-navy",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-daily-notebook-navy/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3216-0.webp"
+      ],
+      "description": [
+        "Capture your thoughts, prayers, and ideas with the GoodNews Daily Notebook! Perfect for journaling, note-taking, or devotional time, this durable and inspiring notebook is great for personal use, church events, or as a thoughtful gift. Write your journey and share the GoodNews!"
+      ],
+      "categories": [
+        {
+          "value": "books",
+          "label": "Books"
+        },
+        {
+          "value": "note-book",
+          "label": "Note Book"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3228",
+      "name": "GoodNews Explorers Notebook",
+      "slug": "goodnews-explorers-notebook",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-notebook/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3228-0.webp"
+      ],
+      "description": [
+        "Make learning about God’s Word fun with the GoodNews Explorers Kids Notebook! Perfect for kids to jot down their thoughts, Bible lessons, and creative ideas. Great for Sunday school, church activities, or as a special gift. Let your little explorers write their faith-filled adventures!Make learning about God’s Word fun with the GoodNews Explorers Kids Notebook! Perfect for kids to jot down their thoughts, Bible lessons, and creative ideas. Great for Sunday school, church activities, or as a special gift. Let your little explorers write their faith-filled adventures!"
+      ],
+      "categories": [
+        {
+          "value": "books",
+          "label": "Books"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        },
+        {
+          "value": "note-book",
+          "label": "Note Book"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3229",
+      "name": "GoodNews Explorers Water Flask",
+      "slug": "goodnews-explorers-water-flask",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-water-flask/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3229-0.webp"
+      ],
+      "description": [
+        "Keep your little explorers hydrated with the *GoodNews Explorers Kids Water Flask*! Durable, kid-friendly, and perfect for adventures, school, or church activities. A fun way to stay refreshed while sharing the GoodNews!"
+      ],
+      "categories": [
+        {
+          "value": "bottles-flask",
+          "label": "Bottles/Flask"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3230",
+      "name": "GoodNews Explorers Tote Bag",
+      "slug": "goodnews-explorers-tote-bag",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-tote-bag/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3230-0.webp"
+      ],
+      "description": [
+        "Carry faith, fun, and essentials with the GoodNews Explorers Kids Tote Bag! Designed for young adventurers, this tote bag is perfect for Sunday school, church activities, or everyday use. Lightweight and durable, it’s the ideal companion for carrying books, notebooks, snacks, and more.",
+        "Features: Kid-Friendly Design: Fun, vibrant, and made for little explorers. Durable and Lightweight: Easy for kids to carry while strong enough to hold all their essentials. Versatile Use: Great for Sunday school, church outings, or day-to-day adventures."
+      ],
+      "categories": [
+        {
+          "value": "bags",
+          "label": "Bags"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3924",
+      "name": "GoodNews Explorers Water Flask Easter Edition – Yellow",
+      "slug": "goodnews-explorers-water-flask-easter-edition-yellow",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-water-flask-easter-edition-yellow/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3924-0.webp"
+      ],
+      "description": [
+        "Keep your little explorers hydrated with the *GoodNews Explorers Kids Water Flask*! Durable, kid-friendly, and perfect for adventures, school, or church activities. A fun way to stay refreshed while sharing the GoodNews!"
+      ],
+      "categories": [
+        {
+          "value": "bottles-flask",
+          "label": "Bottles/Flask"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3925",
+      "name": "GoodNews Explorers Water Flask Easter Edition – Orange",
+      "slug": "goodnews-explorers-water-flask-easter-edition-orange",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-water-flask-easter-edition-orange/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3925-0.webp"
+      ],
+      "description": [
+        "Keep your little explorers hydrated with the *GoodNews Explorers Kids Water Flask*! Durable, kid-friendly, and perfect for adventures, school, or church activities. A fun way to stay refreshed while sharing the GoodNews!"
+      ],
+      "categories": [
+        {
+          "value": "bottles-flask",
+          "label": "Bottles/Flask"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3926",
+      "name": "GoodNews Explorers Tote Bag Easter Edition",
+      "slug": "goodnews-explorers-tote-bag-easter-edition",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-tote-bag-easter-edition/",
+      "price": 10.0,
+      "originalPrice": 10.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3926-0.webp"
+      ],
+      "description": [
+        "Carry faith, fun, and essentials with the GoodNews Explorers Kids Tote Bag! Designed for young adventurers, this tote bag is perfect for Sunday school, church activities, or everyday use. Lightweight and durable, it’s the ideal companion for carrying books, notebooks, snacks, and more.",
+        "Features: Kid-Friendly Design: Fun, vibrant, and made for little explorers. Durable and Lightweight: Easy for kids to carry while strong enough to hold all their essentials. Versatile Use: Great for Sunday school, church outings, or day-to-day adventures."
+      ],
+      "categories": [
+        {
+          "value": "bags",
+          "label": "Bags"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "5243",
+      "name": "TAP2CONNECT WRISTBAND",
+      "slug": "tap2connect",
+      "url": "https://goodnewsdailydevotional.com/product/tap2connect/",
+      "price": 9.99,
+      "originalPrice": 9.99,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/5243-0.png",
+        "/assets/products/5243-1.png",
+        "/assets/products/5243-2.png",
+        "/assets/products/5243-3.png",
+        "/assets/products/5243-4.png"
+      ],
+      "description": [
+        "Your Daily Devotional. One Tap Away.",
+        "Experience a new and effortless way to engage with the Word of God through the TAP2CONNECT NFC Wristband, an innovative product from the GoodNews Daily Store.",
+        "With a simple tap against your smartphone, your daily devotional opens instantly. No apps to download and no searching required. Just tap and connect.",
+        "Key Features",
+        "Instant Access Tap your wristband to your phone and access your daily GoodNews Daily devotional anytime, anywhere.",
+        "Automatic Time Zone Sync Wherever you are in the world, your devotional automatically aligns with your local time.",
+        "Audio Access Listen to the devotional instantly with integrated audio, allowing you to engage with the Word wherever you are.",
+        "Deeper Study Tools Explore further with one-tap access to scriptures, additional study content, and Bible challenges.",
+        "Seamless Experience No delays and no distractions. A simple and consistent way to remain connected to your daily devotional.",
+        "Designed for Everyday Living",
+        "More than a wristband, TAP2CONNECT is a practical and meaningful tool that keeps the Word of God within easy reach throughout your day."
+      ],
+      "categories": [
+        {
+          "value": "wrist-bands",
+          "label": "Wrist Bands"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Colour",
+          "options": [
+            "BLACK",
+            "WHITE",
+            "RED",
+            "YELLOW",
+            "GREEN"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "id": "5249",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "BLACK"
+            }
+          ]
+        },
+        {
+          "id": "5250",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "WHITE"
+            }
+          ]
+        },
+        {
+          "id": "5251",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "RED"
+            }
+          ]
+        },
+        {
+          "id": "5252",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "YELLOW"
+            }
+          ]
+        },
+        {
+          "id": "5253",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "GREEN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5494",
+      "name": "TAP2CONNECT WRISTBAND (TEENS EDITION)",
+      "slug": "tap2connect-wristband-teens-edition",
+      "url": "https://goodnewsdailydevotional.com/product/tap2connect-wristband-teens-edition/",
+      "price": 9.99,
+      "originalPrice": 9.99,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/5494-0.webp"
+      ],
+      "description": [
+        "Your Daily Devotional. One Tap Away.",
+        "Experience a new and effortless way to engage with the Word of God through the TAP2CONNECT NFC Wristband, an innovative product from the GoodNews Daily Store.",
+        "With a simple tap against your smartphone, your daily devotional opens instantly. No apps to download and no searching required. Just tap and connect.",
+        "Key Features",
+        "Instant Access Tap your wristband to your phone and access your daily GoodNews Daily devotional anytime, anywhere.",
+        "Automatic Time Zone Sync Wherever you are in the world, your devotional automatically aligns with your local time.",
+        "Audio Access Listen to the devotional instantly with integrated audio, allowing you to engage with the Word wherever you are.",
+        "Deeper Study Tools Explore further with one-tap access to scriptures, additional study content, and Bible challenges.",
+        "Seamless Experience No delays and no distractions. A simple and consistent way to remain connected to your daily devotional.",
+        "Designed for Everyday Living",
+        "More than a wristband, TAP2CONNECT is a practical and meaningful tool that keeps the Word of God within easy reach throughout your day."
+      ],
+      "categories": [
+        {
+          "value": "wrist-bands",
+          "label": "Wrist Bands"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Colour",
+          "options": [
+            "PINK",
+            "BLUE"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "id": "5501",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "PINK"
+            }
+          ]
+        },
+        {
+          "id": "5502",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "BLUE"
+            }
+          ]
+        },
+        {
+          "id": "5495",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "BLACK"
+            }
+          ]
+        },
+        {
+          "id": "5496",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "WHITE"
+            }
+          ]
+        },
+        {
+          "id": "5497",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "RED"
+            }
+          ]
+        },
+        {
+          "id": "5498",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "YELLOW"
+            }
+          ]
+        },
+        {
+          "id": "5499",
+          "attributes": [
+            {
+              "name": "Colour",
+              "value": "GREEN"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3231",
+      "name": "GoodNews Explorers Drawstring Bag",
+      "slug": "goodnews-explorers-drawstring-bag",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-drawstring-bag/",
+      "price": 7.0,
+      "originalPrice": 7.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3231-0.webp"
+      ],
+      "description": [
+        "Equip your little explorers with the GoodNews Explorers Kids Drawstring Bag! Perfect for Sunday school, church activities, or everyday adventures, this lightweight yet durable bag is designed to carry all their essentials while sharing a message of faith.",
+        "Features: Kid-Friendly Design: Fun and vibrant, perfect for young explorers. Durable and Lightweight: Easy to carry and tough enough for books, snacks, or gear."
+      ],
+      "categories": [
+        {
+          "value": "bags",
+          "label": "Bags"
+        },
+        {
+          "value": "kids",
+          "label": "Kids"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3024",
+      "name": "GoodNews Daily Wristbands",
+      "slug": "goodnews-daily-wristbands",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-daily-wristbands/",
+      "price": 6.0,
+      "originalPrice": 6.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3024-0.webp"
+      ],
+      "description": [],
+      "categories": [
+        {
+          "value": "wrist-bands",
+          "label": "Wrist Bands"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "Colours to choose from",
+          "options": [
+            "Aqua",
+            "Purple",
+            "Red",
+            "Royal Blue"
+          ]
+        }
+      ],
+      "variations": [
+        {
+          "id": "3025",
+          "attributes": [
+            {
+              "name": "Colours to choose from",
+              "value": "Aqua"
+            }
+          ]
+        },
+        {
+          "id": "3026",
+          "attributes": [
+            {
+              "name": "Colours to choose from",
+              "value": "Purple"
+            }
+          ]
+        },
+        {
+          "id": "3027",
+          "attributes": [
+            {
+              "name": "Colours to choose from",
+              "value": "Red"
+            }
+          ]
+        },
+        {
+          "id": "3028",
+          "attributes": [
+            {
+              "name": "Colours to choose from",
+              "value": "Royal Blu"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2950",
+      "name": "GoodNews Explorers Sticker Sheets (Pack of 2)",
+      "slug": "goodnews-explorers-sticker-sheets-pack-of-2",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-sticker-sheets-pack-of-2/",
+      "price": 4.0,
+      "originalPrice": 4.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/2950-0.webp"
+      ],
+      "description": [
+        "Add a touch of fun and faith to your child’s world with the GoodNews Explorers Sticker Sheets! Featuring colorful designs of the GoodNews Explorer characters, these stickers are perfect for decorating notebooks, water bottles, or craft projects.",
+        "Features: •⁠ ⁠Pack of 2 Sheets: Includes a variety of vibrant GoodNews Explorer characters. •⁠ ⁠Kid-Friendly Fun: Perfect for crafts, school projects, or Sunday school activities."
+      ],
+      "categories": [
+        {
+          "value": "kids",
+          "label": "Kids"
+        },
+        {
+          "value": "stickers",
+          "label": "Stickers"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    },
+    {
+      "id": "3913",
+      "name": "GoodNews Explorers Sticker Sheets Easter Edition (Pack of 2)",
+      "slug": "goodnews-explorers-sticker-sheets-easter-edition-pack-of-2",
+      "url": "https://goodnewsdailydevotional.com/product/goodnews-explorers-sticker-sheets-easter-edition-pack-of-2/",
+      "price": 4.0,
+      "originalPrice": 4.0,
+      "currency": "GBP",
+      "inStock": true,
+      "rating": 0.0,
+      "reviewCount": 0,
+      "images": [
+        "/assets/products/3913-0.webp"
+      ],
+      "description": [
+        "Add a touch of fun and faith to your child’s world with the GoodNews Explorers Sticker Sheets! Featuring colorful designs of the GoodNews Explorer characters, these stickers are perfect for decorating notebooks, water bottles, or craft projects.",
+        "Features: •⁠ ⁠Pack of 2 Sheets: Includes a variety of vibrant GoodNews Explorer characters. •⁠ ⁠Kid-Friendly Fun: Perfect for crafts, school projects, or Sunday school activities."
+      ],
+      "categories": [
+        {
+          "value": "kids",
+          "label": "Kids"
+        },
+        {
+          "value": "stickers",
+          "label": "Stickers"
+        }
+      ],
+      "attributes": [],
+      "variations": []
+    }
+  ]
+}

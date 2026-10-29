@@ -1,0 +1,18 @@
+# Gates: Library and collections
+Scope: Recreate library, filters, stories, and collection screens.
+- [x] L1: Reference featured reading, collection filters/search, save controls and category menu implemented.
+  EVIDENCE: src/components/Library.tsx provides featured onRead, category/date predicates, saved filtering/toggling, search clear/focus and six shortcuts. Refined exact labels ‘Featured readings’, ‘Explore the collection’, ‘Search devotionals, scriptures…’, and ‘Period’; actual result count appears beside collection heading. library.css sets 672px content, header40/400 at top28, subtitle28/400, 310x230 card at calculated top148 with 96px artwork at top165 and 24px/400 title plus devotional capsule. Correct magazine, Bible and prayer-hands assets; Library pill/collapse circle sit above transparent frosted tray. Provenance: all 12 bundled summaries match source JSON with unique IDs and original URLs.
+- [x] L2: Collections allow audience/year/issue selection and opening real local readings.
+  EVIDENCE: src/components/Collections.tsx derives available years/issues/readings from devotionals by audience (lines 26-29); year opens issues, issue opens readings and reading calls onRead (lines 43-47). 2026 has one actual available issue per audience; earlier year buttons show an honest empty state and Browse 2026 action.
+- [x] L3: Responsive layout, usable empty states, and improvement pass complete.
+  EVIDENCE: src/components/library.css desktop/mobile rules constrain widths, horizontally scroll 44px category pills, provide two-column period controls, keep tray above shell dock, and style dark mode/focus/reduced motion. Review fixed filtered Saved messaging, month searches at year level, clear-search preserving year, and Search focus. Reference refinement replaced enclosing tray panel, typography weights, featured metadata and category assets. Final source review checked changed selectors and found no further defect; parent owns rendered screenshot verification.
+- [x] L4: Library and Collections compile against their shared contracts.
+  CHECK: ./node_modules/.bin/tsc --ignoreConfig --noEmit --strict --jsx react-jsx --target es2022 --module esnext --moduleResolution bundler --lib es2022,dom --skipLibCheck --noUnusedLocals --noUnusedParameters --noUncheckedSideEffectImports false src/components/Library.tsx src/components/Collections.tsx src/library-data.ts
+  EVIDENCE: (no output)
+
+## Passes
+1. Complete implementation: all requested controls wired to local content or shell callbacks; story details explicitly identify editorial summaries.
+2. Domain review: date predicates respect actual publication dates; collection counts derive from source readings rather than invented archive entries.
+3. Defect hunt: fixed filtered saved-empty messaging, collection month matching, clear-search year preservation, initial Search focus, and global active-transform interaction.
+4. Polish and repeat review: tuned mobile card/tray widths, dark surfaces, fallback article image and disabled article boundaries. No further defect found in final source pass. Browser interaction and screenshot evidence are the parent integration responsibility.
+5. Reference refinement: root supplied measured screenshot corrections; updated heading text/weights/spacing, featured devotional capsule, result count placement, category pill geometry, two-column period layout, and tray composition/assets. Verified full-project `npm run typecheck` passes after the changes. Desktop layout arithmetic places featured card at y147.6 and circular image at y164.6 (rounded screenshot targets y148/y165); these are CSS-derived targets pending parent screenshot confirmation.
