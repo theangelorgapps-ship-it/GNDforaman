@@ -958,3 +958,186 @@ body:not([data-theme="dark"]) .share-orb {
     height: 70dvh;
   }
 }
+
+/* Calm motion: short feedback, gentle arrival, no spring overshoot. */
+:root {
+  --motion-ease: cubic-bezier(0.2, 0, 0, 1);
+  --motion-quick: 140ms;
+  --motion-standard: 280ms;
+  --motion-slow: 420ms;
+}
+.page-transition {
+  animation: page-reveal var(--motion-slow) var(--motion-ease);
+}
+.page-transition > div > header,
+.page-transition > main > header,
+.col-content {
+  animation: content-arrive var(--motion-slow) var(--motion-ease);
+}
+@keyframes page-reveal {
+  from {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes content-arrive {
+  from {
+    opacity: 0.5;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.modal-backdrop {
+  animation: page-reveal var(--motion-standard) var(--motion-ease);
+}
+.modal-panel {
+  animation: dialog-arrive 340ms var(--motion-ease);
+  transform-origin: 50% 70%;
+}
+@keyframes dialog-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.modal-backdrop.is-closing {
+  opacity: 0;
+  transition: opacity 160ms cubic-bezier(0.3, 0, 1, 1);
+}
+.modal-backdrop.is-closing .modal-panel {
+  transform: translateY(9px) scale(0.985);
+  transition: transform 160ms cubic-bezier(0.3, 0, 1, 1);
+}
+.liquid-glass-button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #ffffffdb;
+  border-radius: 999px;
+  color: var(--blue);
+  background: linear-gradient(135deg, #ffffffb8, #ffffff52 48%, #d9e7ff80);
+  box-shadow:
+    inset 0 1px 1px #fff,
+    inset 0 -1px 1px #afc6e540,
+    0 4px 14px #26426a12;
+  backdrop-filter: blur(18px) saturate(1.35);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  transition:
+    transform var(--motion-quick) var(--motion-ease),
+    box-shadow var(--motion-standard) var(--motion-ease),
+    border-color var(--motion-quick);
+}
+.liquid-glass-button::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(115deg, #fff6, transparent 50%, #fff2);
+  opacity: 0.6;
+  transform: translateX(0);
+  transition:
+    transform var(--motion-standard) var(--motion-ease),
+    opacity var(--motion-standard);
+  pointer-events: none;
+}
+.liquid-glass-button:hover {
+  box-shadow:
+    inset 0 1px 1px #fff,
+    0 6px 18px #26426a22;
+  transform: translateY(-1px);
+}
+.liquid-glass-button:hover::before {
+  opacity: 1;
+  transform: translateX(2px);
+}
+.liquid-glass-button:active:not(:disabled) {
+  transform: scale(0.975);
+}
+body[data-theme="dark"] .liquid-glass-button {
+  color: #dceaff;
+  background: linear-gradient(135deg, #536d9666, #24334c66 50%, #45608855);
+  border-color: #bed3f04a;
+  box-shadow:
+    inset 0 1px 1px #ffffff40,
+    inset 0 -1px 1px #06102350,
+    0 4px 14px #0002;
+}
+.appearance-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.appearance-choice {
+  min-width: 0;
+  padding: 6px 6px 26px;
+  transition:
+    border-color var(--motion-quick),
+    transform var(--motion-quick);
+}
+.appearance-choice > div {
+  height: 110px;
+  margin-bottom: 10px;
+  transition: box-shadow var(--motion-standard);
+}
+.appearance-choice.selected > div {
+  box-shadow: 0 0 18px #5784e529;
+}
+.appearance-choice > svg {
+  right: calc(50% - 7px);
+  bottom: 7px;
+  width: 14px;
+  height: 14px;
+  animation: content-arrive var(--motion-standard) var(--motion-ease);
+}
+.appearance-choice b {
+  font-size: 13px;
+}
+.light-preview {
+  color: #253a56;
+}
+.system-preview {
+  background: linear-gradient(120deg, #e6f1ff 0 49.5%, #243b5b 50% 100%);
+  color: #6a8ec8;
+}
+@media (max-width: 420px) {
+  .appearance-options {
+    gap: 6px;
+  }
+  .appearance-choice {
+    border-radius: 16px;
+  }
+  .appearance-choice > div {
+    height: 88px;
+    border-radius: 11px;
+  }
+  .appearance-choice > div > span {
+    height: 5px;
+  }
+  .appearance-choice b {
+    font-size: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .modal-panel,
+  .modal-backdrop {
+    animation: none !important;
+  }
+  .liquid-glass-button:hover,
+  .liquid-glass-button:active:not(:disabled) {
+    transform: none;
+  }
+}

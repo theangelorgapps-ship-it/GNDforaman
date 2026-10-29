@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CheckCircle2,
   ChevronLeft,
@@ -56,18 +56,46 @@ export function Home({
   const [shareOpen, setShareOpen] = useState(false);
   const [railIndex, setRailIndex] = useState(0);
   const railRef = useRef<HTMLDivElement>(null);
+  function cardOffsets() {
+    const rail = railRef.current;
+    if (!rail) return [];
+    const center = rail.getBoundingClientRect().left + rail.clientWidth / 2;
+    return Array.from(rail.children).map((card) => {
+      const rect = card.getBoundingClientRect();
+      return Math.min(
+        rail.scrollWidth - rail.clientWidth,
+        Math.max(0, rect.left + rect.width / 2 - center + rail.scrollLeft),
+      );
+    });
+  }
+  function updateRailIndex() {
+    const rail = railRef.current;
+    if (!rail) return;
+    const offsets = cardOffsets();
+    const closest = offsets.reduce(
+      (best, offset, index) =>
+        Math.abs(offset - rail.scrollLeft) <
+        Math.abs(offsets[best] - rail.scrollLeft)
+          ? index
+          : best,
+      0,
+    );
+    setRailIndex(closest);
+  }
+  useEffect(() => {
+    const rail = railRef.current;
+    if (!rail) return;
+    const observer = new ResizeObserver(updateRailIndex);
+    observer.observe(rail);
+    return () => observer.disconnect();
+  }, []);
   function selectRailCard(index: number) {
-    setRailIndex(index);
-    const card = railRef.current?.children[index] as HTMLElement | undefined;
-    if (card && railRef.current)
-      railRef.current.scrollTo({
-        left:
-          (index / 2) *
-          (railRef.current.scrollWidth - railRef.current.clientWidth),
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-          ? "instant"
-          : "smooth",
-      });
+    railRef.current?.scrollTo({
+      left: cardOffsets()[index],
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
+    });
   }
   const progress = completed ? 100 : Math.round(narration.progress * 100);
 
@@ -227,14 +255,22 @@ export function Home({
       <div
         className="home-card-rail"
         ref={railRef}
-        onScroll={(event) => {
-          const rail = event.currentTarget;
-          if (rail.scrollWidth > rail.clientWidth)
-            setRailIndex(
-              Math.round(
-                (rail.scrollLeft / (rail.scrollWidth - rail.clientWidth)) * 2,
+        onScroll={updateRailIndex}
+        role="region"
+        aria-label="Daily inspiration cards"
+        aria-roledescription="carousel"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.target !== event.currentTarget) return;
+          if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+            event.preventDefault();
+            selectRailCard(
+              Math.max(
+                0,
+                Math.min(2, railIndex + (event.key === "ArrowRight" ? 1 : -1)),
               ),
             );
+          }
         }}
       >
         <section

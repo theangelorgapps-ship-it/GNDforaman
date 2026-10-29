@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { ArrowUpRight, Pause, Play, Store } from "lucide-react";
-import { PRODUCTS, money, type Product } from "../catalog";
+import { ArrowUpRight, Pause, Play } from "lucide-react";
+import { PRODUCTS, type Product } from "../catalog";
 export function HomeStoreCard({
   onStore,
   onProduct,
@@ -18,7 +18,6 @@ export function HomeStoreCard({
       aria-labelledby="home-store-title"
     >
       <div className="home-store-heading">
-        <Store size={25} />
         <button
           onClick={() => setPaused((p) => !p)}
           aria-label={
@@ -29,8 +28,7 @@ export function HomeStoreCard({
         </button>
       </div>
       <button className="home-store-title" onClick={onStore}>
-        <h2 id="home-store-title">GoodNews Store</h2>
-        <ArrowUpRight size={19} />
+        <h2 id="home-store-title">GoodNews Daily Store</h2>
       </button>
       <p>Carry a little inspiration.</p>
       <div className={`home-product-marquee ${paused ? "is-paused" : ""}`}>
@@ -50,13 +48,11 @@ export function HomeStoreCard({
                   >
                     <img src={product.images[0]} alt="" loading="lazy" />
                     <span>{product.name}</span>
-                    <strong>{money(product.price)}</strong>
                   </button>
                 ) : (
                   <div className="home-mini-product" key={product.id}>
                     <img src={product.images[0]} alt="" loading="lazy" />
                     <span>{product.name}</span>
-                    <strong>{money(product.price)}</strong>
                   </div>
                 ),
               )}
@@ -64,7 +60,7 @@ export function HomeStoreCard({
           ))}
         </div>
       </div>
-      <button className="home-store-link" onClick={onStore}>
+      <button className="home-store-link liquid-glass-button" onClick={onStore}>
         Explore the store <ArrowUpRight size={15} />
       </button>
     </section>

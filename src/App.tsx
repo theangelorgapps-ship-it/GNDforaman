@@ -10,6 +10,7 @@ import {
   Home as HomeIcon,
   Link,
   Moon,
+  Monitor,
   Share2,
   Store,
   Sun,
@@ -58,6 +59,7 @@ function currentRoute(): { screen: Screen; product: Product | null } {
   };
 }
 import { useLocalState, copyText } from "./hooks";
+import { useAppearance } from "./use-appearance";
 import { todayFor } from "./data";
 import type { Audience, Devotional, Screen } from "./types";
 interface Alarm {
@@ -82,7 +84,7 @@ export default function App() {
     () => currentRoute().product,
   );
   const [audience, setAudience] = useLocalState<Audience>("audience", "Adults");
-  const [dark, setDark] = useLocalState<boolean>("dark", false);
+  const { appearance, setAppearance, dark, toggleTheme } = useAppearance();
   const [saved, setSaved] = useLocalState<string[]>("saved", []);
   const [completed, setCompleted] = useLocalState<string[]>("completed", []);
   const [readingDays, setReadingDays] = useLocalState<string[]>(
@@ -237,7 +239,7 @@ export default function App() {
   ] as const;
   return (
     <>
-      <main id="main-content">
+      <main id="main-content" key={screen} className="page-transition">
         {screen === "home" && (
           <Home
             audience={audience}
@@ -245,7 +247,7 @@ export default function App() {
             onRead={read}
             onSearch={() => openLibrary("Search")}
             onProfile={() => navigate("profile")}
-            onTheme={() => setDark(!dark)}
+            onTheme={toggleTheme}
             dark={dark}
             onPartner={() => openModal("partner")}
             onAlarm={() => openModal("alarm")}
@@ -281,7 +283,7 @@ export default function App() {
             onRead={read}
             saved={saved}
             onSave={toggleSave}
-            onTheme={() => setDark(!dark)}
+            onTheme={toggleTheme}
             dark={dark}
             onProfile={() => navigate("profile")}
             initialTab={libraryTab}
@@ -296,7 +298,7 @@ export default function App() {
             onAudience={setAudience}
             onRead={read}
             onBack={() => navigate("home")}
-            onTheme={() => setDark(!dark)}
+            onTheme={toggleTheme}
             dark={dark}
           />
         )}
@@ -327,7 +329,7 @@ export default function App() {
             onBag={() => openModal("bag")}
             onBack={() => navigate("home")}
             dark={dark}
-            onTheme={() => setDark(!dark)}
+            onTheme={toggleTheme}
           />
         )}
         {screen === "product" && product && (
@@ -400,23 +402,29 @@ export default function App() {
           <div className="appearance-options">
             {[
               {
-                value: false,
+                value: "light" as const,
                 Icon: Sun,
                 title: "Light",
                 className: "light-preview",
               },
               {
-                value: true,
+                value: "dark" as const,
                 Icon: Moon,
                 title: "Dark",
                 className: "dark-preview",
               },
+              {
+                value: "system" as const,
+                Icon: Monitor,
+                title: "System",
+                className: "system-preview",
+              },
             ].map(({ value, Icon, title, className }) => (
               <button
                 key={title}
-                className={`appearance-choice ${dark === value ? "selected" : ""}`}
-                aria-pressed={dark === value}
-                onClick={() => setDark(value)}
+                className={`appearance-choice ${appearance === value ? "selected" : ""}`}
+                aria-pressed={appearance === value}
+                onClick={() => setAppearance(value)}
               >
                 <div className={className}>
                   <Icon />
@@ -424,7 +432,7 @@ export default function App() {
                   <span />
                 </div>
                 <b>{title}</b>
-                {dark === value && <Check size={16} />}
+                {appearance === value && <Check size={16} />}
               </button>
             ))}
           </div>
@@ -443,7 +451,14 @@ export default function App() {
             <button onClick={() => openModal("appearance")}>
               <Sun size={20} />
               <span>
-                Appearance<small>{dark ? "Dark mode" : "Light mode"}</small>
+                Appearance
+                <small>
+                  {appearance === "system"
+                    ? "System appearance"
+                    : dark
+                      ? "Dark mode"
+                      : "Light mode"}
+                </small>
               </span>
               <ChevronRight size={18} />
             </button>

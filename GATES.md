@@ -25,3 +25,7 @@ Scope: Recreate the supplied GoodNews Daily Connect app in a new local TypeScrip
   CHECK: node scripts/check-server.mjs
   EXPECT: LOCAL_SERVER_VERIFIED
   EVIDENCE: README.md contains source directory and npm run dev/build/preview commands; evidence/server.json tracks retained PID31894; local preview opened and marked deliverable.
+
+## Active refinement ledger
+
+The current browser-annotation and motion work is tracked in `gates/annotation-motion.md`.

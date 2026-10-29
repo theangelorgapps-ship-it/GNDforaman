@@ -1,0 +1,403 @@
+{
+  "issue": "2026-10",
+  "period": "October–December 2026",
+  "label": "Issue 4 · 2026",
+  "checked": "2026-10-29",
+  "audiences": {
+    "Adults": {
+      "source": "https://goodnewsdailydevotional.com/goodnews-daily-issue-4-2026/",
+      "languages": [
+        {
+          "name": "English",
+          "url": "https://docdro.id/r64PnXL"
+        },
+        {
+          "name": "Afrikaans",
+          "url": "https://docdro.id/HtS9nrc"
+        },
+        {
+          "name": "Amharic",
+          "url": null
+        },
+        {
+          "name": "AO",
+          "url": "https://docdro.id/q9tjrn8"
+        },
+        {
+          "name": "Arabic",
+          "url": null
+        },
+        {
+          "name": "Bemba",
+          "url": null
+        },
+        {
+          "name": "Bulgarian",
+          "url": "https://docdro.id/CMxR9LQ"
+        },
+        {
+          "name": "Chewa",
+          "url": "https://docdro.id/QF0nuiH"
+        },
+        {
+          "name": "Chitonga",
+          "url": "https://docdro.id/ha82ToP"
+        },
+        {
+          "name": "Cinyanja",
+          "url": "https://docdro.id/QsOj8aR"
+        },
+        {
+          "name": "Dholuo",
+          "url": null
+        },
+        {
+          "name": "Djambarrpuyngu",
+          "url": "https://docdro.id/CGVcMxO"
+        },
+        {
+          "name": "Dutch",
+          "url": "https://docdro.id/92TyOFB"
+        },
+        {
+          "name": "Fijian",
+          "url": "https://docdro.id/YavqajZ"
+        },
+        {
+          "name": "Filipino",
+          "url": "https://docdro.id/Y9dyWQ4"
+        },
+        {
+          "name": "French",
+          "url": "https://docdro.id/g3FdsSf"
+        },
+        {
+          "name": "Garo",
+          "url": "https://docdro.id/cBotkAx"
+        },
+        {
+          "name": "German",
+          "url": "https://docdro.id/oFxOEbg"
+        },
+        {
+          "name": "Greek",
+          "url": "https://docdro.id/uLjYKrA"
+        },
+        {
+          "name": "Gujarati",
+          "url": null
+        },
+        {
+          "name": "Haitian Creole",
+          "url": "https://docdro.id/aWIZUit"
+        },
+        {
+          "name": "Hausa",
+          "url": null
+        },
+        {
+          "name": "Hindi",
+          "url": "https://docdro.id/Crg8VkW"
+        },
+        {
+          "name": "Hungarian",
+          "url": null
+        },
+        {
+          "name": "Igbo",
+          "url": null
+        },
+        {
+          "name": "Italian",
+          "url": "https://docdro.id/rKASJU0"
+        },
+        {
+          "name": "Japanese",
+          "url": "https://docdro.id/JsSoymp"
+        },
+        {
+          "name": "Kalenjin",
+          "url": "https://docdro.id/baM53D4"
+        },
+        {
+          "name": "Kamba",
+          "url": null
+        },
+        {
+          "name": "Khmer",
+          "url": "https://docdro.id/cTYIlux"
+        },
+        {
+          "name": "Khoekhoegowab",
+          "url": null
+        },
+        {
+          "name": "Kikuyu",
+          "url": "https://docdro.id/JAUSrVb"
+        },
+        {
+          "name": "Kinyarwanda",
+          "url": "https://docdro.id/o0K19nk"
+        },
+        {
+          "name": "Kirundi",
+          "url": "https://docdro.id/tsmKTad"
+        },
+        {
+          "name": "Konkani",
+          "url": null
+        },
+        {
+          "name": "Luvale",
+          "url": "https://docdro.id/fmMvLd1"
+        },
+        {
+          "name": "Malagasy",
+          "url": "https://docdro.id/2X0lqOs"
+        },
+        {
+          "name": "Malay",
+          "url": "https://docdro.id/J2T5A8Z"
+        },
+        {
+          "name": "Malayalam",
+          "url": "https://docdro.id/n0xEq4l"
+        },
+        {
+          "name": "Mandarin",
+          "url": "https://docdro.id/H9JJlyQ"
+        },
+        {
+          "name": "Marathi",
+          "url": "https://docdro.id/62hrZho"
+        },
+        {
+          "name": "Mizo",
+          "url": "https://docdro.id/wGb612E"
+        },
+        {
+          "name": "Moldovan",
+          "url": "https://docdro.id/7Bre158"
+        },
+        {
+          "name": "Nambya",
+          "url": "https://docdro.id/aIFEsmZ"
+        },
+        {
+          "name": "Ndebele",
+          "url": "https://docdro.id/3b3tWGG"
+        },
+        {
+          "name": "Nepali",
+          "url": "https://docdro.id/jsXYBO9"
+        },
+        {
+          "name": "Oshindonga",
+          "url": "https://docdro.id/C6WKmcD"
+        },
+        {
+          "name": "Otjihereo",
+          "url": null
+        },
+        {
+          "name": "Portuguese",
+          "url": "https://docdro.id/cVW8HyG"
+        },
+        {
+          "name": "Punjabi",
+          "url": "https://docdro.id/pA7zTlU"
+        },
+        {
+          "name": "Romanian",
+          "url": "https://docdro.id/DuI5RuE"
+        },
+        {
+          "name": "Rukwangali",
+          "url": "https://docdro.id/ZsRtJQS"
+        },
+        {
+          "name": "Russian",
+          "url": "https://docdro.id/YRtqf3q"
+        },
+        {
+          "name": "Sepedi",
+          "url": "https://docdro.id/41oho4G"
+        },
+        {
+          "name": "Setswana",
+          "url": "https://docdro.id/rxiXUZK"
+        },
+        {
+          "name": "Shona",
+          "url": "https://docdro.id/1iEnx2Q"
+        },
+        {
+          "name": "Silozi",
+          "url": "https://docdro.id/sM6FUgU"
+        },
+        {
+          "name": "Sinhala",
+          "url": "https://docdro.id/h4In4EI"
+        },
+        {
+          "name": "Siswati",
+          "url": null
+        },
+        {
+          "name": "Spanish",
+          "url": "https://docdro.id/zUfIL6P"
+        },
+        {
+          "name": "Swahili",
+          "url": "https://docdro.id/WbqZmu4"
+        },
+        {
+          "name": "Tamil",
+          "url": "https://docdro.id/EMzPeAa"
+        },
+        {
+          "name": "Telugu",
+          "url": "https://docdro.id/u5Mv1Eg"
+        },
+        {
+          "name": "Tigrinya",
+          "url": null
+        },
+        {
+          "name": "Turkish",
+          "url": "https://docdro.id/XK0RiQx"
+        },
+        {
+          "name": "Tok Pisin",
+          "url": "https://docdro.id/JU8KYon"
+        },
+        {
+          "name": "Urdu",
+          "url": "https://docdro.id/msilTKy"
+        },
+        {
+          "name": "Xangani",
+          "url": "https://docdro.id/7C4y56T"
+        },
+        {
+          "name": "Xhosa",
+          "url": null
+        }
+      ]
+    },
+    "Teens": {
+      "source": "https://goodnewsdailydevotional.com/goodnews-daily-teens-issue-4-2026/",
+      "languages": [
+        {
+          "name": "English",
+          "url": "https://docdro.id/LdEjAvi"
+        },
+        {
+          "name": "Bemba",
+          "url": null
+        },
+        {
+          "name": "Dutch",
+          "url": null
+        },
+        {
+          "name": "French",
+          "url": "https://docdro.id/v53BvvX"
+        },
+        {
+          "name": "Garo",
+          "url": "https://docdro.id/NWp47Kc"
+        },
+        {
+          "name": "Hindi",
+          "url": "https://docdro.id/4bl9eyO"
+        },
+        {
+          "name": "Khmer",
+          "url": "https://docdro.id/snFS4Fb"
+        },
+        {
+          "name": "Romanian",
+          "url": "https://docdro.id/70VjzE7"
+        },
+        {
+          "name": "Setswana",
+          "url": null
+        },
+        {
+          "name": "Swahili",
+          "url": "https://docdro.id/C7mODuV"
+        },
+        {
+          "name": "Urdu",
+          "url": "https://docdro.id/ylRxk75"
+        }
+      ]
+    },
+    "Kids": {
+      "source": "https://goodnewsdailydevotional.com/goodnews-daily-kids-issue-4-2026/",
+      "languages": [
+        {
+          "name": "English",
+          "url": "https://docdro.id/srZIBFg"
+        },
+        {
+          "name": "Bemba",
+          "url": null
+        },
+        {
+          "name": "Bulgarian",
+          "url": "https://docdro.id/S2UsOAF"
+        },
+        {
+          "name": "Dutch",
+          "url": null
+        },
+        {
+          "name": "French",
+          "url": "https://docdro.id/7cqN1E3"
+        },
+        {
+          "name": "German",
+          "url": "https://docdro.id/lpKRNzQ"
+        },
+        {
+          "name": "Gujarati",
+          "url": null
+        },
+        {
+          "name": "Hindi",
+          "url": "https://docdro.id/5oQA0iR"
+        },
+        {
+          "name": "Khmer",
+          "url": "https://docdro.id/AbhQzaW"
+        },
+        {
+          "name": "Malay",
+          "url": "https://docdro.id/AOpWnag"
+        },
+        {
+          "name": "Portuguese",
+          "url": "https://docdro.id/VsnvR7o"
+        },
+        {
+          "name": "Romanian",
+          "url": "https://docdro.id/nXk2dXf"
+        },
+        {
+          "name": "Spanish",
+          "url": "https://docdro.id/EwgLtHJ"
+        },
+        {
+          "name": "Swahili",
+          "url": "https://docdro.id/gi5OpL9"
+        },
+        {
+          "name": "Urdu",
+          "url": "https://docdro.id/mppK88u"
+        }
+      ]
+    }
+  }
+}

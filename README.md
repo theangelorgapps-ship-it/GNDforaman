@@ -22,7 +22,7 @@ Stop a terminal-launched server with Ctrl+C. The Codex-launched development serv
 
 ## Included
 
-- Responsive home, audience tabs, original sunset/teens artwork, verse and story cards, light/dark appearance, floating navigation.
+- Responsive home, audience tabs, original sunset/teens artwork, verse and story cards, Light/Dark/System appearance, floating navigation.
 - Complete captured adult and teen devotionals, reading progress, saved readings, text controls, sharing, and device speech narration.
 - Searchable library with real source story summaries and original article links; year/issue/reading collections.
 - Bible chapter/book navigation, ASV and WEB translations, search, persistent highlights and reading controls. Bundled passages work offline; other passages load from https://bible-api.com/ with explicit loading and error states.
@@ -57,3 +57,11 @@ Original object artwork comes from the user's existing `gndfinale/apps/mobile/as
 - Product assets and prices are public source data. Local reader data, bag and wishlist stay in browser storage and are never committed.
 
 See `DEPLOYMENT.md` for deployment and rollback commands, and `evidence/store-verification.md` for release checks.
+
+## Appearance, motion and language editions
+
+- System appearance follows the device theme live. An explicit Light or Dark preference overrides it. Existing boolean theme preferences migrate without changing the selected theme. `npm test` verifies migration, OS-change events and listener cleanup.
+- Home cards remain side by side in a swipeable, keyboard-accessible carousel. The home Store preview hides prices; the catalog and product pages retain them.
+- Motion uses small, calm entrances and quick feedback; reduced-motion preferences disable decorative animation.
+- Collection issue cards open a searchable language chooser. Official Issue 4 (October–December 2026) edition links are captured in `src/collection-languages.json`, with separate Adults/Teens/Kids sources and explicit unavailable states. PDFs open on the official document host. The language selection does not translate the local daily-reading snapshot. The original app's Kids sample remains a sample; published Kids full-issue PDFs are available through Collections.
+- Refinement verification and source provenance: `evidence/annotation-verification.md`.

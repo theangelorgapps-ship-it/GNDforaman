@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import {
   ArrowDownWideNarrow,
   ArrowLeft,
+  ArrowUpRight,
+  Languages,
   BookOpen,
   ChevronDown,
   ChevronRight,
@@ -14,6 +16,14 @@ import {
 import { devotionals } from "../data";
 import type { Audience, Devotional } from "../types";
 import "./library.css";
+import { useLocalState } from "../hooks";
+import {
+  editionLanguages,
+  editionSource,
+  editionPeriod,
+  supportsPublishedIssue,
+} from "../collection-editions";
+import { CollectionLanguageDialog } from "./CollectionLanguageDialog";
 
 interface CollectionsProps {
   audience: Audience;
@@ -36,11 +46,31 @@ export function Collections({
   dark,
 }: CollectionsProps) {
   const [query, setQuery] = useState("");
+  const [language, setLanguage] = useLocalState(
+    "collection-language",
+    "English",
+  );
+  const [languageDialog, setLanguageDialog] = useState(false);
+  const [openIssueAfterLanguage, setOpenIssueAfterLanguage] = useState(false);
   const [ascending, setAscending] = useState(false);
   const [level, setLevel] = useState<CollectionLevel>("years");
   const [year, setYear] = useState("2026");
   const [issue, setIssue] = useState("2026-10");
   const [trayOpen, setTrayOpen] = useState(true);
+  const languageIssue =
+    level === "years" || issue.startsWith(year) ? issue : `${year}-01`;
+  const languages = editionLanguages(audience, languageIssue);
+  const chosenLanguage =
+    languages.find((l) => l.name === language) ?? languages[0];
+  function chooseLanguage(name: string) {
+    setLanguage(name);
+    setLanguageDialog(false);
+    if (openIssueAfterLanguage) {
+      setLevel("readings");
+      setQuery("");
+    }
+    setOpenIssueAfterLanguage(false);
+  }
   const search = query.trim().toLocaleLowerCase();
   const audienceReadings = useMemo(
     () => devotionals.filter((reading) => reading.audience === audience),
@@ -119,7 +149,7 @@ export function Collections({
       ? availableYears.length === 0
       : level === "issues"
         ? availableIssues.length === 0
-        : issueReadings.length === 0;
+        : chosenLanguage.name === "English" && issueReadings.length === 0;
 
   return (
     <main className="lib-screen col-screen">
@@ -182,7 +212,10 @@ export function Collections({
           <button
             key={value}
             aria-pressed={value === audience}
-            onClick={() => onAudience(value)}
+            onClick={() => {
+              onAudience(value);
+              setLanguage("English");
+            }}
             className={value === audience ? "col-active" : ""}
           >
             {value}
@@ -227,7 +260,19 @@ export function Collections({
                 ? year
                 : issueName(issue)}
           </h2>
-          {level !== "years" && <span>{audience}</span>}
+          <button
+            className="col-language-trigger liquid-glass-button"
+            aria-label={`Choose collection language, ${chosenLanguage.name}`}
+            aria-haspopup="dialog"
+            onClick={() => {
+              setOpenIssueAfterLanguage(false);
+              setLanguageDialog(true);
+            }}
+          >
+            <Languages size={16} />
+            <span>{chosenLanguage.name}</span>
+            <ChevronDown size={14} />
+          </button>
         </div>
         {isEmpty ? (
           <div className="lib-empty-state col-empty">
@@ -302,8 +347,8 @@ export function Collections({
                   key={value}
                   onClick={() => {
                     setIssue(value);
-                    setLevel("readings");
-                    setQuery("");
+                    setOpenIssueAfterLanguage(true);
+                    setLanguageDialog(true);
                   }}
                 >
                   <div className="col-issue-cover">
@@ -333,7 +378,45 @@ export function Collections({
                   <ChevronRight size={21} />
                 </button>
               ))}
+            {level === "readings" && supportsPublishedIssue(issue) && (
+              <article className="col-edition-card">
+                <Languages size={25} />
+                <div>
+                  <h3>{chosenLanguage.name} edition</h3>
+                  <p>
+                    GoodNews Daily · {audience}
+                    <br />
+                    Issue 4 · {editionPeriod}
+                  </p>
+                  {chosenLanguage.url ? (
+                    <a
+                      className="liquid-glass-button"
+                      href={chosenLanguage.url}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Read the full issue <ArrowUpRight size={15} />
+                    </a>
+                  ) : (
+                    <>
+                      <p className="col-language-unavailable">
+                        This edition has no download linked on the official site
+                        yet.
+                      </p>
+                      <a
+                        href={editionSource(audience)}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Check available editions <ArrowUpRight size={15} />
+                      </a>
+                    </>
+                  )}
+                </div>
+              </article>
+            )}
             {level === "readings" &&
+              chosenLanguage.name === "English" &&
               issueReadings.map((reading) => (
                 <button
                   className="col-devotional-card"
@@ -362,6 +445,18 @@ export function Collections({
           </div>
         )}
       </section>
+      {languageDialog && (
+        <CollectionLanguageDialog
+          languages={languages}
+          selected={chosenLanguage.name}
+          description={`${audience} · ${level === "years" ? "Choose your reading language" : level === "issues" && !openIssueAfterLanguage ? year : issueName(issue)}`}
+          onSelect={chooseLanguage}
+          onClose={() => {
+            setLanguageDialog(false);
+            setOpenIssueAfterLanguage(false);
+          }}
+        />
+      )}
       <aside
         className={`col-year-tray ${trayOpen ? "" : "col-tray-collapsed"}`}
         aria-label="Collection years"

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { X } from "lucide-react";
 export function Modal({
@@ -13,6 +13,23 @@ export function Modal({
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [closing, setClosing] = useState(false);
+  function close() {
+    if (closing) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      onClose();
+      return;
+    }
+    setClosing(true);
+    timer.current = setTimeout(onClose, 160);
+  }
+  useEffect(
+    () => () => {
+      if (timer.current) clearTimeout(timer.current);
+    },
+    [],
+  );
   useEffect(() => {
     const previous = document.activeElement as HTMLElement;
     const prior = document.body.style.overflow;
@@ -25,9 +42,9 @@ export function Modal({
   }, []);
   return (
     <div
-      className="modal-backdrop"
+      className={`modal-backdrop ${closing ? "is-closing" : ""}`}
       onMouseDown={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget) close();
       }}
     >
       <div
@@ -38,7 +55,7 @@ export function Modal({
         tabIndex={-1}
         className={`modal-panel ${className}`}
         onKeyDown={(e) => {
-          if (e.key === "Escape") onClose();
+          if (e.key === "Escape") close();
           if (e.key === "Tab") {
             const nodes = Array.from(
               ref.current?.querySelectorAll<HTMLElement>(
@@ -66,7 +83,7 @@ export function Modal({
           <button
             className="icon-button"
             aria-label={`Close ${title}`}
-            onClick={onClose}
+            onClick={close}
           >
             <X size={22} />
           </button>
