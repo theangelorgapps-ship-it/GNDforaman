@@ -54,9 +54,7 @@ export function CollectionLanguageDialog({
               <small>
                 {language.url
                   ? "Full issue available"
-                  : language.name === "English"
-                    ? "Available readings"
-                    : "No edition linked yet"}
+                  : "No edition linked yet"}
               </small>
             </span>
             {language.name === selected ? (
