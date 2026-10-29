@@ -10,3 +10,7 @@
 - Partnership: supplied Name/Phone/Email/Country and donation form rendered. Responsive wrapper fit at 393px. Parent iframe count 1 when open, 0 after close, 1 on reopen. Form/payment submission was not performed. Vendor Turnstile diagnostics appeared from its third-party challenge frame; no application errors were observed in these checks.
 - Automated state checks: invalid/missing variants, unavailable products, invalid quantities, bounds, variant merging, storage restore, corrupt records, and removal all passed.
 - Existing Codex phone emulator clipping is a separate browser-frame issue documented in earlier evidence. Release layout was checked in a fresh Chrome viewport rather than relying on the emulator's page-only capture.
+
+## Published smoke check
+
+Cloudflare production URL https://gnd-test.pages.dev and deployment https://bc8cc824.gnd-test.pages.dev are live. Root HTML and partnership host matched the tested dist files byte for byte. Main JS/CSS, profile artwork, and product image returned HTTP 200 with expected content types. Live Store rendered 20 product cards. Live T-shirt detail at 393px measured scrollWidth 393, showed the correct title/image, and contained no bottom menu. The live partnership Name field was visible. Screenshots: deployed-store-desktop.png, deployed-product-phone.png, deployed-partnership-phone.png. Private GitHub repository and default branch were verified through gh. Temporary Chrome QA tabs were closed and viewport overrides reset; the requested existing local dev server remains running.
