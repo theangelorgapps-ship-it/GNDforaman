@@ -18,5 +18,5 @@ Scope: Inspect every user-facing screen, fix the annotated copy and frontend gap
   CHECK: npm test && npm run build
   EXPECT: BUILD_VERIFIED
   EVIDENCE: npm test passes all four behavior suites; npm run build returns BUILD_VERIFIED; git diff --check passes. Production browser uses index-DxoPn7g4.js. Actual360/393px mobile checks plus1800px desktop, keyboard/focus/history, memory-only partial reset/corruption/write/render/chunk failures verified. RELEASE.md documents limits.
-- [ ] L8: Verified update and launch documents are pushed to the private project and deployed to the existing GND test site; live changes are checked.
-  EVIDENCE: pending
+- [x] L8: Verified update and launch documents are pushed to the private project and deployed to the existing GND test site; live changes are checked.
+  EVIDENCE: Application commit448d118 pushed to verified private GNDforaman/codex/goodnews-local; Cloudflare deployment8a066289 serves gnd-test.pages.dev. Live HTML/JS/CSS byte-match local build; Home/Profile/partnership/20 View buttons checked at393px, no horizontal overflow or captured error logs. RELEASE.md and evidence/launch-20261030 record proof. Launch documents shipped with the application commit.

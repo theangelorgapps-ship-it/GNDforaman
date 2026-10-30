@@ -35,4 +35,12 @@ Production preview additionally confirmed Help/About/Light-Dark-System and avail
 
 ## Release record
 
-Application commit, deployment and live smoke evidence are recorded below after publication.
+- Application commit: `448d118` — pushed to the verified private `theangelorgapps-ship-it/GNDforaman` repository on `codex/goodnews-local`.
+- Cloudflare Pages deployment: https://8a066289.gnd-test.pages.dev ; production alias: https://gnd-test.pages.dev .
+- Live HTML, entry JavaScript, stylesheet and profile image match the local production build byte for byte. The development-only QA fixture is absent from `dist`.
+- Published Home shows Don’t Sleep! and the dated Latest reading badge. Profile shows local-reader/no-sync copy and the new information controls. Partnership shows non-charity/no-unlock disclosure with zero iframes before deliberate loading.
+- Published Store has 20 buttons labeled View. Actual mobile viewport and document width both measure 393px. No error logs were captured in this live smoke session.
+- Live screenshots: `evidence/launch-20261030/home-mobile.png`, `profile-mobile.png`, `partnership-mobile.png` and `store-mobile.png`.
+- The original user tab was refreshed to the new Home release. Temporary QA tabs and viewport overrides were cleaned up, and the task-only production preview server was stopped.
+
+This publication completes the frontend task. The external mobile-store launch blockers above remain open.
