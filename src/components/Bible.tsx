@@ -22,21 +22,19 @@ import {
   BIBLE_VERSIONS,
   OFFLINE_CHAPTERS,
   parseBibleReference,
+  restoreBibleHighlights,
 } from "../bible-data";
-import type { BibleReference, BibleVerse, BibleVersion } from "../bible-data";
+import type {
+  BibleHighlight,
+  BibleReference,
+  BibleVerse,
+  BibleVersion,
+  HighlightColor,
+} from "../bible-data";
 import { Modal } from "./Modal";
 import "./bible.css";
 
-type HighlightColor = "yellow" | "blue" | "pink";
-interface Highlight {
-  book: string;
-  chapter: number;
-  verse: number;
-  version: BibleVersion;
-  text: string;
-  color: HighlightColor;
-}
-type HighlightMap = Record<string, Highlight>;
+type HighlightMap = Record<string, BibleHighlight>;
 const STORAGE_KEY = "gnd-local-bible-highlights";
 const DEFAULT_REFERENCE: BibleReference = { book: "John", chapter: 3 };
 const highlightKey = (
@@ -50,20 +48,7 @@ function readHighlights(): HighlightMap {
     const value: unknown = JSON.parse(
       localStorage.getItem(STORAGE_KEY) ?? "{}",
     );
-    if (!value || typeof value !== "object" || Array.isArray(value)) return {};
-    return Object.fromEntries(
-      Object.entries(value).filter(
-        ([, item]) =>
-          item &&
-          typeof item === "object" &&
-          typeof item.text === "string" &&
-          typeof item.book === "string" &&
-          Number.isInteger(item.chapter) &&
-          Number.isInteger(item.verse) &&
-          ["asv", "web"].includes(item.version) &&
-          ["yellow", "blue", "pink"].includes(item.color),
-      ),
-    );
+    return restoreBibleHighlights(value);
   } catch {
     return {};
   }
@@ -131,6 +116,13 @@ export function Bible({ initialReference }: { initialReference?: string }) {
   const currentBook = BIBLE_BOOKS[bookIndex];
   const chapterTitle = `${reference.book} ${reference.chapter}`;
   const versionTitle = BIBLE_VERSIONS.find((item) => item.id === version)!;
+  const sourceReference = parseBibleReference(initialReference ?? "");
+  const citedVersion = initialReference?.match(/\(([a-z][a-z0-9]{1,9})\)\s*$/i)?.[1];
+  const showTranslationNotice =
+    citedVersion &&
+    citedVersion.toLowerCase() !== version &&
+    sourceReference?.book === reference.book &&
+    sourceReference?.chapter === reference.chapter;
   const referenceResult = parseBibleReference(search);
   const textMatches =
     search.trim().length > 1 && !referenceResult
@@ -286,10 +278,9 @@ export function Bible({ initialReference }: { initialReference?: string }) {
   }
 
   useEffect(() => {
-    if (initialReference) {
-      const next = parseBibleReference(initialReference);
-      if (next) setReference(next);
-    }
+    setReference(
+      parseBibleReference(initialReference ?? "") ?? DEFAULT_REFERENCE,
+    );
   }, [initialReference]);
   useEffect(() => {
     speechRun.current += 1;
@@ -390,7 +381,12 @@ export function Bible({ initialReference }: { initialReference?: string }) {
     const frame = requestAnimationFrame(() =>
       document
         .getElementById(`bible-verse-${reference.verse}`)
-        ?.scrollIntoView({ behavior: "smooth", block: "center" }),
+        ?.scrollIntoView({
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "instant"
+            : "smooth",
+          block: "center",
+        }),
     );
     return () => cancelAnimationFrame(frame);
   }, [verses, loading, error, reference]);
@@ -465,6 +461,12 @@ export function Bible({ initialReference }: { initialReference?: string }) {
           </button>
         </div>
       </header>
+      {showTranslationNotice && (
+        <p className="bible-translation-notice">
+          This passage is shown in {versionTitle.abbreviation}. The devotional
+          quotes {citedVersion.toUpperCase()}.
+        </p>
+      )}
       <div
         className="bible-passage"
         style={{ "--bible-font-size": `${fontSize}px` } as CSSProperties}

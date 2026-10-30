@@ -1141,3 +1141,83 @@ body[data-theme="dark"] .liquid-glass-button {
     transform: none;
   }
 }
+
+.information-copy {
+  line-height: 1.65;
+  font-size: 16px;
+  overflow-wrap: anywhere;
+}
+.information-copy h3 {
+  font-size: 19px;
+  line-height: 1.3;
+  margin: 26px 0 9px;
+}
+.information-copy h3:first-child {
+  margin-top: 8px;
+}
+.information-copy p {
+  margin: 0 0 16px;
+}
+.information-copy .glass-button,
+.partnership-intro + button {
+  min-height: 44px;
+}
+.information-copy a.glass-button {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  text-decoration: none;
+}
+.information-status,
+.data-confirm {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin: 16px 0;
+}
+.data-confirm p {
+  margin: 10px 0;
+}
+.storage-warning {
+  max-width: 900px;
+  margin: 16px auto;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+.storage-warning p {
+  line-height: 1.5;
+  margin: 0 0 10px;
+}
+.recovery-screen {
+  padding: 56px 24px;
+  min-height: 70dvh;
+  line-height: 1.6;
+}
+.recovery-screen h1 {
+  line-height: 1.2;
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+.recovery-screen .modal-actions,
+.data-confirm .modal-actions {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.partnership-fallback {
+  min-height: 44px;
+  font-size: 14px;
+}
+.share-link span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 560px) {
+  .storage-warning {
+    margin: 12px;
+  }
+  .profile-local-note {
+    padding-inline: 8px;
+  }
+}

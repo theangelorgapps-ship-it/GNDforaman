@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import {
+  readLocalValue,
+  reportStorageProblem,
+  writeLocalValue,
+} from "./local-data";
 export function useLocalState<T>(key: string, fallback: T) {
+  const readable = useRef(true);
   const [value, setValue] = useState<T>(() => {
     try {
-      const raw = localStorage.getItem("gnd-local-" + key);
-      return raw ? (JSON.parse(raw) as T) : fallback;
+      return readLocalValue(localStorage, key, fallback);
     } catch {
+      readable.current = false;
+      reportStorageProblem(
+        "Some saved data could not be read. You can keep using this session. Export your stored data in Profile → Privacy & data before clearing anything.",
+      );
       return fallback;
     }
   });
@@ -13,9 +22,12 @@ export function useLocalState<T>(key: string, fallback: T) {
       const result =
         typeof next === "function" ? (next as (old: T) => T)(old) : next;
       try {
-        localStorage.setItem("gnd-local-" + key, JSON.stringify(result));
+        if (!writeLocalValue(localStorage, key, result, readable.current))
+          throw new Error("Saved data needs recovery");
       } catch {
-        /* Session remains usable if storage is unavailable. */
+        reportStorageProblem(
+          "Your latest changes could not be saved in this browser. Keep this page open and copy any new notes before leaving. A data export includes previously saved data only.",
+        );
       }
       return result;
     });

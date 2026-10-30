@@ -37,6 +37,7 @@ interface LibraryProps {
   dark: boolean;
   onProfile: () => void;
   initialTab?: string;
+  onTabChange?: (tab: string) => void;
   onNotes: () => void;
   onBible: () => void;
   onAlarm: () => void;
@@ -126,6 +127,7 @@ export function Library({
   dark,
   onProfile,
   initialTab,
+  onTabChange,
   onNotes,
   onBible,
   onAlarm,
@@ -186,6 +188,7 @@ export function Library({
   );
   const emptySavedCollection = tab === "Saved" && !hasSavedItems && !query;
   function chooseTab(next: LibraryTab) {
+    onTabChange?.(next);
     setTab(next);
     setSelectedStory(null);
   }
@@ -196,7 +199,7 @@ export function Library({
   function clearFilters() {
     setQuery("");
     setPeriod("All time");
-    setTab("All");
+    chooseTab("All");
   }
 
   if (selectedStory) {
@@ -204,7 +207,7 @@ export function Library({
       (story) => story.id === selectedStory.id,
     );
     return (
-      <main className="lib-screen lib-story-detail">
+      <section className="lib-screen lib-story-detail">
         <header className="lib-detail-header">
           <button
             className="icon-button"
@@ -306,12 +309,12 @@ export function Library({
               ))}
           </div>
         </section>
-      </main>
+      </section>
     );
   }
 
   return (
-    <main className={`lib-screen ${menuOpen ? "lib-tray-open" : ""}`}>
+    <section className={`lib-screen ${menuOpen ? "lib-tray-open" : ""}`}>
       <header className="lib-header">
         <h1>Library</h1>
         <div className="lib-header-actions">
@@ -570,6 +573,6 @@ export function Library({
           </div>
         )}
       </aside>
-    </main>
+    </section>
   );
 }

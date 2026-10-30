@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ArrowLeft,
   ShoppingBag as BagIcon,
@@ -13,6 +14,14 @@ import { Modal } from "./Modal";
 import { PRODUCTS, money, officialProductUrl, type Product } from "../catalog";
 import { useShop } from "../shop-state";
 import "./shop.css";
+function BagProductImage({ product }: { product: Product }) {
+  const [failed, setFailed] = useState(false);
+  return failed || !product.images[0] ? (
+    <span className="bag-image-fallback">Image unavailable</span>
+  ) : (
+    <img src={product.images[0]} alt="" onError={() => setFailed(true)} />
+  );
+}
 export function StorePage({
   onProduct,
   onBag,
@@ -143,7 +152,7 @@ export function ShoppingBag({
                     onClick={() => onProduct(product)}
                     aria-label={`View ${product.name}`}
                   >
-                    <img src={product.images[0]} alt="" />
+                    <BagProductImage product={product} />
                   </button>
                   <div>
                     <button

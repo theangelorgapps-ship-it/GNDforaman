@@ -11,6 +11,7 @@ import {
   Minus,
   Plus,
   ArrowUpRight,
+  ImageOff,
 } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,7 @@ export function ProductCard({
   onBag,
 }: ProductCardProps) {
   const [imageIndex, setImageIndex] = useState(0);
+  const [failedImages, setFailedImages] = useState<string[]>([]);
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
@@ -43,18 +45,32 @@ export function ProductCard({
     setSelections((old) => ({ ...old, [name]: value }));
     setAdded(false);
   };
-  const image = (
-    <motion.img
-      key={imageIndex}
-      src={product.images[imageIndex]}
-      alt={`${product.name}${imageIndex ? `, view ${imageIndex + 1}` : ""}`}
-      className="product-image"
-      loading={details ? "eager" : "lazy"}
-      initial={reduceMotion ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.2 }}
-    />
-  );
+  const imageSource = product.images[imageIndex];
+  const markImageFailed = (src: string) =>
+    setFailedImages((old) => (old.includes(src) ? old : [...old, src]));
+  const image =
+    !imageSource || failedImages.includes(imageSource) ? (
+      <span
+        className="product-image-fallback"
+        role="img"
+        aria-label={`${product.name}: image unavailable`}
+      >
+        <ImageOff size={28} aria-hidden="true" />
+        <span>Image unavailable</span>
+      </span>
+    ) : (
+      <motion.img
+        key={imageIndex}
+        src={imageSource}
+        onError={() => markImageFailed(imageSource)}
+        alt={`${product.name}${imageIndex ? `, view ${imageIndex + 1}` : ""}`}
+        className="product-image"
+        loading={details ? "eager" : "lazy"}
+        initial={reduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.2 }}
+      />
+    );
   return (
     <Card className={`product-card ${details ? "product-card-detail" : ""}`}>
       <div className="product-gallery">
@@ -123,7 +139,13 @@ export function ProductCard({
                 aria-pressed={i === imageIndex}
                 onClick={() => setImageIndex(i)}
               >
-                <img src={src} alt="" />
+                {failedImages.includes(src) ? (
+                  <span className="product-thumbnail-fallback">
+                    View {i + 1}
+                  </span>
+                ) : (
+                  <img src={src} alt="" onError={() => markImageFailed(src)} />
+                )}
               </button>
             ))}
           </div>
@@ -154,6 +176,9 @@ export function ProductCard({
           </div>
           {details && (
             <>
+              <p className="product-availability-note">
+                Check the current price and availability on the official store.
+              </p>
               <p className="product-intro">
                 {product.description[0] ||
                   `Explore ${product.name} from the official GoodNews shop.`}
@@ -259,7 +284,7 @@ export function ProductCard({
             </>
           ) : (
             <Button variant="outline" onClick={onOpen}>
-              View product <ChevronRight size={16} />
+              View <ChevronRight size={16} />
             </Button>
           )}
         </CardFooter>

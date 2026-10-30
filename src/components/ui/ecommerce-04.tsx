@@ -6,6 +6,7 @@
 import * as React from "react";
 import {
   PRODUCTS,
+  CATALOG_UPDATED,
   CATEGORIES,
   COLOURS,
   colourOptions,
@@ -13,6 +14,7 @@ import {
   type Product,
 } from "@/catalog";
 import { ProductCard } from "./product-card-1";
+import { useShop } from "@/shop-state";
 import { Input } from "./input";
 import { SlidersHorizontal, X } from "lucide-react";
 
@@ -210,9 +212,14 @@ const getActiveFilters = (filters: Filters): ActiveFilter[] => [
 interface FilterPanelProps {
   filters: Filters;
   onFiltersChange: (next: Filters) => void;
+  products: Product[];
 }
 
-const FilterPanel = ({ filters, onFiltersChange }: FilterPanelProps) => {
+const FilterPanel = ({
+  filters,
+  onFiltersChange,
+  products,
+}: FilterPanelProps) => {
   const id = React.useId();
   const update = (patch: Partial<Filters>) =>
     onFiltersChange({ ...filters, ...patch });
@@ -230,7 +237,7 @@ const FilterPanel = ({ filters, onFiltersChange }: FilterPanelProps) => {
           Category
         </FieldLegend>
         {CATEGORIES.map((category) => {
-          const count = PRODUCTS.filter(
+          const count = products.filter(
             (product) =>
               product.categories.some((c) => c.value === category.value) &&
               matches(product, filters, true),
@@ -374,25 +381,42 @@ const Ecommerce04 = ({
 }: {
   onProduct: (product: Product) => void;
 }) => {
+  const { wishlist } = useShop();
+  const [savedOnly, setSavedOnly] = React.useState(false);
   const [query, setQuery] = React.useState("");
   const [filters, setFilters] = React.useState<Filters>(EMPTY_FILTERS);
   const [sort, setSort] = React.useState<Sort>("featured");
 
+  const matchingCollection = PRODUCTS.filter(
+    (product) =>
+      (!savedOnly || wishlist.includes(product.id)) &&
+      product.name.toLowerCase().includes(query.trim().toLowerCase()),
+  );
   const results = sortProducts(
-    PRODUCTS.filter(
-      (product) =>
-        matches(product, filters) &&
-        product.name.toLowerCase().includes(query.trim().toLowerCase()),
-    ),
+    matchingCollection.filter((product) => matches(product, filters)),
     sort,
   );
   const active = getActiveFilters(filters);
-  const resultKey = JSON.stringify([filters, sort, query]);
-  const clearAll = () => {
+  const resultKey = JSON.stringify([filters, sort, query, savedOnly]);
+  const clearFilters = () => {
     setFilters(EMPTY_FILTERS);
     setQuery("");
   };
-  const resultLabel = `${results.length} ${results.length === 1 ? "product" : "products"}`;
+  const clearAll = () => {
+    clearFilters();
+    setSavedOnly(false);
+  };
+  const resultLabel = `${results.length} ${savedOnly ? "saved " : ""}${results.length === 1 ? "product" : "products"}`;
+  const noSavedProducts = savedOnly && wishlist.length === 0;
+  const hasRefinements = active.length > 0 || !!query;
+  const catalogDate = new Date(
+    `${CATALOG_UPDATED}T12:00:00Z`,
+  ).toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  });
 
   return (
     <section data-slot="category-page" className="store-catalog">
@@ -444,14 +468,18 @@ const Ecommerce04 = ({
                 variant="ghost"
                 size="xs"
                 onClick={clearAll}
-                disabled={active.length === 0 && !query}
+                disabled={!hasRefinements && !savedOnly}
                 className="text-muted-foreground"
               >
                 Clear all
               </Button>
             </div>
             <div className="pt-6">
-              <FilterPanel filters={filters} onFiltersChange={setFilters} />
+              <FilterPanel
+                filters={filters}
+                onFiltersChange={setFilters}
+                products={matchingCollection}
+              />
             </div>
           </aside>
 
@@ -461,6 +489,28 @@ const Ecommerce04 = ({
             className={cn(ENTER, "flex min-w-0 flex-col gap-6")}
           >
             <div className="flex flex-col gap-4 border-b border-border pb-4">
+              <div
+                className="store-collection-tabs"
+                aria-label="Product collection"
+              >
+                <Button
+                  type="button"
+                  variant={savedOnly ? "outline" : "default"}
+                  aria-pressed={!savedOnly}
+                  onClick={() => setSavedOnly(false)}
+                >
+                  All products
+                </Button>
+                <Button
+                  type="button"
+                  variant={savedOnly ? "default" : "outline"}
+                  aria-pressed={savedOnly}
+                  onClick={() => setSavedOnly(true)}
+                >
+                  Saved products{" "}
+                  <span className="tabular-nums">({wishlist.length})</span>
+                </Button>
+              </div>
               <label className="store-search">
                 <span className="sr-only">Search products</span>
                 <Input
@@ -503,6 +553,7 @@ const Ecommerce04 = ({
                         <FilterPanel
                           filters={filters}
                           onFiltersChange={setFilters}
+                          products={matchingCollection}
                         />
                       </SheetBody>
                       <SheetFooter className="flex-row border-t border-border">
@@ -510,7 +561,7 @@ const Ecommerce04 = ({
                           type="button"
                           variant="outline"
                           onClick={clearAll}
-                          disabled={active.length === 0 && !query}
+                          disabled={!hasRefinements && !savedOnly}
                         >
                           Clear all
                         </Button>
@@ -594,6 +645,11 @@ const Ecommerce04 = ({
               )}
             </div>
 
+            <p className="store-catalog-note">
+              Catalog updated{" "}
+              <time dateTime={CATALOG_UPDATED}>{catalogDate}</time>. Check
+              current prices and availability on the official store.
+            </p>
             {results.length > 0 ? (
               <div
                 key={resultKey}
@@ -614,16 +670,34 @@ const Ecommerce04 = ({
                 className={cn(SWAP, "border border-border py-16")}
               >
                 <EmptyHeader>
-                  <EmptyTitle>Nothing matches those filters</EmptyTitle>
+                  <EmptyTitle>
+                    {noSavedProducts
+                      ? "Your saved products live here"
+                      : savedOnly
+                        ? "No saved products match"
+                        : "Nothing matches those filters"}
+                  </EmptyTitle>
                   <EmptyDescription>
-                    Try another search or clear your filters to see the whole
-                    collection.
+                    {noSavedProducts
+                      ? "Tap a heart on any product to keep it here on this device."
+                      : "Try another search or clear your filters to see more of the collection."}
                   </EmptyDescription>
                 </EmptyHeader>
                 <EmptyContent>
-                  <Button type="button" variant="outline" onClick={clearAll}>
-                    Clear filters
-                  </Button>
+                  {!noSavedProducts && hasRefinements && (
+                    <Button
+                      type="button"
+                      variant="outline"
+                      onClick={clearFilters}
+                    >
+                      Clear search and filters
+                    </Button>
+                  )}
+                  {savedOnly && (
+                    <Button type="button" variant="outline" onClick={clearAll}>
+                      Browse all products
+                    </Button>
+                  )}
                 </EmptyContent>
               </Empty>
             )}

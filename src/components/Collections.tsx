@@ -34,7 +34,6 @@ interface CollectionsProps {
   dark: boolean;
 }
 const audiences: Audience[] = ["Adults", "Teens", "Kids"];
-const years = ["2026", "2025", "2024", "2023", "2022", "2021"];
 type CollectionLevel = "years" | "issues" | "readings";
 
 export function Collections({
@@ -76,6 +75,9 @@ export function Collections({
     () => devotionals.filter((reading) => reading.audience === audience),
     [audience],
   );
+  const years = [
+    ...new Set(audienceReadings.map((reading) => reading.date.slice(0, 4))),
+  ].sort((a, b) => b.localeCompare(a));
   const availableYears = [
     ...new Set(audienceReadings.map((reading) => reading.date.slice(0, 4))),
   ]
@@ -152,7 +154,7 @@ export function Collections({
         : chosenLanguage.name === "English" && issueReadings.length === 0;
 
   return (
-    <main className="lib-screen col-screen">
+    <section className="lib-screen col-screen">
       <header className="col-header">
         <button
           className="icon-button"
@@ -493,6 +495,6 @@ export function Collections({
           </nav>
         )}
       </aside>
-    </main>
+    </section>
   );
 }

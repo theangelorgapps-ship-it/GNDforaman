@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { Devotional } from "../types";
+import { routeHash } from "../routes";
 import "./reader.css";
 
 interface ReaderProps {
@@ -269,7 +270,9 @@ export function Reader({
     year: "numeric",
     timeZone: "UTC",
   }).format(new Date(`${devotional.date}T12:00:00Z`));
-  const shareText = `${devotional.title}\n\n${devotional.scripture}\n${devotional.scriptureRef}\n\nGoodNews Daily`;
+  const shareUrl = new URL(window.location.pathname, window.location.origin);
+  shareUrl.hash = routeHash({ screen: "reader", id: devotional.id });
+  const shareText = `${devotional.title}\n\n${devotional.scripture}\n${devotional.scriptureRef}\n\nGoodNews Daily\n${shareUrl.href}`;
 
   useEffect(() => {
     if (!optionsOpen) return;
@@ -468,11 +471,11 @@ export function Reader({
           )}
           {devotional.audience === "Adults" && (
             <section className="reader-year">
-              <h2>Bible in a Year</h2>
+              <h2>More Bible reading</h2>
               <div className="reader-year-links">
                 <button type="button" onClick={() => onBible("Genesis 1")}>
                   <span>
-                    Old Testament<strong>Genesis 1–3</strong>
+                    Old Testament<strong>Genesis 1</strong>
                   </span>
                   <ChevronRight size={18} />
                 </button>

@@ -12,6 +12,8 @@ import {
   X,
   ChevronDown,
   Sparkles,
+  CircleHelp,
+  Info,
 } from "lucide-react";
 import "./profile.css";
 type Props = {
@@ -39,14 +41,6 @@ export default function Profile({
   const [trayOpen, setTrayOpen] = useState(true);
   return (
     <section className="profile-screen narrow-screen">
-      <div className="profile-auth">
-        <button className="glass-button" onClick={() => onSettings("account")}>
-          Log in
-        </button>
-        <button className="glass-button" onClick={() => onSettings("account")}>
-          Sign up
-        </button>
-      </div>
       <div className="profile-card">
         <div className="profile-intro">
           Your GoodNews story <Sparkles size={43} />
@@ -82,15 +76,19 @@ export default function Profile({
           </div>
         </div>
         <h1>{name || "Reader"}</h1>
-        <p className="profile-private">Private local journey</p>
+        <p className="profile-private">Local reader · saved in this browser</p>
+        <p className="profile-local-note">
+          No account needed. Your journal and reading activity stay with this
+          browser and do not sync to other devices.
+        </p>
         <button className="outreach-card" onClick={() => onSettings("journey")}>
-          <span>Keep the GoodNews moving</span>
+          <span>Make time for the GoodNews</span>
           <strong>
-            Your outreach
+            Your reading
             <br />
             journey
           </strong>
-          <small>Connections, milestones & impact</small>
+          <small>Readings completed & saved</small>
           <Sparkles className="outreach-sparkles" size={44} />
           <ArrowUpRight size={26} />
         </button>
@@ -124,7 +122,7 @@ export default function Profile({
           <Heart />
           <span>
             <b>GoodNews partnership</b>
-            <small>Help share the GoodNews</small>
+            <small>Support development of the free app</small>
           </span>
           <ChevronRight size={19} />
         </button>
@@ -144,9 +142,21 @@ export default function Profile({
             },
             {
               key: "privacy",
-              label: "Privacy & security",
-              detail: "Your account and personal data",
+              label: "Privacy & data",
+              detail: "Export or clear your local journey",
               Icon: Shield,
+            },
+            {
+              key: "help",
+              label: "Help & support",
+              detail: "Reading, reminders and getting help",
+              Icon: CircleHelp,
+            },
+            {
+              key: "about",
+              label: "About",
+              detail: "GoodNews Daily and our support model",
+              Icon: Info,
             },
           ].map(({ key, label, detail, Icon }) => (
             <button key={key} onClick={() => onSettings(key)}>

@@ -14,7 +14,7 @@ import {
   Users,
 } from "lucide-react";
 import type { Audience, Devotional } from "../types";
-import { storyTitles, todayFor } from "../data";
+import { readingBadge, storyTitles, todayFor } from "../data";
 import { ReadingShareDialog, useDevotionalNarration } from "./Reader";
 import "./home.css";
 import { HomeStoreCard } from "./HomeStoreCard";
@@ -22,6 +22,7 @@ import type { Product } from "../catalog";
 
 interface HomeProps {
   audience: Audience;
+  readerName?: string;
   onAudience: (audience: Audience) => void;
   onRead: (devotional?: Devotional) => void;
   onSearch: () => void;
@@ -38,6 +39,7 @@ interface HomeProps {
 
 export function Home({
   audience,
+  readerName = "Reader",
   onAudience,
   onRead,
   onSearch,
@@ -52,10 +54,27 @@ export function Home({
   onProduct,
 }: HomeProps) {
   const devotional = todayFor(audience);
+  const [today, setToday] = useState(() => new Date());
   const narration = useDevotionalNarration(devotional);
   const [shareOpen, setShareOpen] = useState(false);
   const [railIndex, setRailIndex] = useState(0);
   const railRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const midnight = new Date(today);
+    midnight.setHours(24, 0, 0, 0);
+    const timer = window.setTimeout(
+      () => setToday(new Date()),
+      Math.max(100, midnight.getTime() - Date.now() + 100),
+    );
+    const refreshDate = () => {
+      if (!document.hidden) setToday(new Date());
+    };
+    document.addEventListener("visibilitychange", refreshDate);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", refreshDate);
+    };
+  }, [today]);
   function cardOffsets() {
     const rail = railRef.current;
     if (!rail) return [];
@@ -111,7 +130,7 @@ export function Home({
           <img src="/assets/profile.png" alt="" width="44" height="44" />
           <span>
             <strong>GoodNewsToYou</strong>
-            <em>Reader</em>
+            <em>{readerName.trim() || "Reader"}</em>
           </span>
         </button>
         <div className="home-header-actions">
@@ -182,9 +201,7 @@ export function Home({
         <div className="home-hero-shade" />
         <span className="home-today-badge">
           <CheckCircle2 size={14} />
-          {devotional.audience === "Kids"
-            ? "Sample reading"
-            : "Today’s reading"}
+          {readingBadge(devotional, today)}
         </span>
         <div className="home-hero-content">
           <p className="home-hero-label">{devotional.category}</p>

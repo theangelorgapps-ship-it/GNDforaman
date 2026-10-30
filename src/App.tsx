@@ -1,4 +1,4 @@
-import { lazy, useEffect, useRef, useState } from "react";
+import { lazy, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import {
   Book,
   BookOpen,
@@ -6,7 +6,6 @@ import {
   ChevronRight,
   Compass,
   Copy,
-  Download,
   Home as HomeIcon,
   Link,
   Moon,
@@ -38,29 +37,37 @@ const ShoppingBag = lazy(() =>
 );
 import { PartnershipModal } from "./components/PartnershipModal";
 import { PRODUCTS, type Product } from "./catalog";
-function currentRoute(): { screen: Screen; product: Product | null } {
-  const route = window.location.hash.slice(2);
-  if (route.startsWith("product/")) {
-    const product = PRODUCTS.find((p) => p.slug === route.slice(8));
-    return { screen: product ? "product" : "store", product: product ?? null };
-  }
-  const screens: Screen[] = [
-    "home",
-    "library",
-    "collections",
-    "bible",
-    "profile",
-    "notes",
-    "store",
-  ];
-  return {
-    screen: screens.includes(route as Screen) ? (route as Screen) : "home",
-    product: null,
-  };
+function currentRoute() {
+  const route = parseRoute(window.location.hash);
+  const product =
+    route.screen === "product"
+      ? (PRODUCTS.find((p) => p.slug === route.id) ?? null)
+      : null;
+  const reading =
+    route.screen === "reader"
+      ? (devotionals.find((d) => d.id === route.id) ?? null)
+      : null;
+  const screen: Screen =
+    route.screen === "product" && !product
+      ? "store"
+      : route.screen === "reader" && !reading
+        ? "library"
+        : route.screen;
+  return { ...route, screen, product, reading };
 }
 import { useLocalState, copyText } from "./hooks";
 import { useAppearance } from "./use-appearance";
-import { todayFor } from "./data";
+import { todayFor, devotionals } from "./data";
+import { parseRoute, routeHash } from "./routes";
+import {
+  clearLocalData,
+  getStorageProblem,
+  subscribeStorageProblem,
+} from "./local-data";
+import {
+  ReaderInformation,
+  type InformationKind,
+} from "./components/ReaderInformation";
 import type { Audience, Devotional, Screen } from "./types";
 interface Alarm {
   enabled: boolean;
@@ -94,22 +101,142 @@ export default function App() {
   const [name, setName] = useLocalState<string>("name", "Reader");
   const [notes, setNotes] = useLocalState<Note[]>("notes", []);
   const [alarm, setAlarm] = useLocalState<Alarm>("alarm", initialAlarm);
-  const [reading, setReading] = useState<Devotional>(todayFor(audience));
-  const [returnScreen, setReturnScreen] = useState<Screen>("home");
-  const [libraryTab, setLibraryTab] = useState("All");
-  const [bibleRef, setBibleRef] = useState<string | undefined>();
+  const [reading, setReading] = useState<Devotional>(
+    () => currentRoute().reading ?? todayFor(audience),
+  );
+  const [libraryTab, setLibraryTab] = useState(
+    () => currentRoute().filter || "All",
+  );
+  const [bibleRef, setBibleRef] = useState<string | undefined>(
+    () => currentRoute().reference,
+  );
   const [modal, setModal] = useState<string | null>(null);
   const [toast, setToast] = useState("");
   const [draftName, setDraftName] = useState(name);
   const [draftAlarm, setDraftAlarm] = useState(alarm);
   const [systemNotice, setSystemNotice] = useState("");
   const notified = useRef("");
-  useEffect(() => {
-    const restore = () => {
-      const route = currentRoute();
-      setScreen(route.screen);
-      setProduct(route.product);
+  const acceptedHash = useRef(window.location.hash || "#/home");
+  const historyIndex = useRef<number>(
+    Number.isInteger(window.history.state?.gndIndex)
+      ? window.history.state.gndIndex
+      : 0,
+  );
+  const restoringHistory = useRef(false);
+  const allowHistory = useRef(false);
+  const afterHistoryRestore = useRef<(() => void) | null>(null);
+  const storageProblem = useSyncExternalStore(
+    subscribeStorageProblem,
+    getStorageProblem,
+  );
+  const [resetFailure, setResetFailure] = useState("");
+  const appShareUrl = new URL("#/home", window.location.href).href;
+  function applyRoute() {
+    const route = currentRoute();
+    setScreen(route.screen);
+    setProduct(route.product);
+    if (route.reading) setReading(route.reading);
+    setLibraryTab(route.filter || "All");
+    setBibleRef(route.reference);
+    setModal(null);
+    acceptedHash.current = window.location.hash || "#/home";
+  }
+  function guarded(proceed: () => void) {
+    const event = new CustomEvent("gnd-before-navigate", {
+      cancelable: true,
+      detail: { proceed },
+    });
+    if (window.dispatchEvent(event)) proceed();
+  }
+  function go(hash: string) {
+    guarded(() => {
+      if (window.location.hash !== hash) {
+        historyIndex.current += 1;
+        window.history.pushState(
+          { gndFrom: acceptedHash.current, gndIndex: historyIndex.current },
+          "",
+          hash,
+        );
+      }
+      applyRoute();
+    });
+  }
+  function resetData() {
+    try {
+      const result = clearLocalData(localStorage);
+      if (result.failed.length) throw new Error("partial reset");
+      window.location.hash = "/home";
+      window.location.reload();
+    } catch {
+      setResetFailure(
+        "Some GoodNews data could not be cleared. Editing is paused so old session data cannot be saved again. You can retry, or reload to use the data that remains in this browser.",
+      );
       setModal(null);
+    }
+  }
+  useEffect(() => {
+    window.history.replaceState(
+      { ...window.history.state, gndIndex: historyIndex.current },
+      "",
+    );
+    const restore = () => {
+      const target = window.location.hash || "#/home";
+      if (restoringHistory.current) {
+        if (target === acceptedHash.current) {
+          restoringHistory.current = false;
+          const pending = afterHistoryRestore.current;
+          afterHistoryRestore.current = null;
+          pending?.();
+        }
+        return;
+      }
+      if (target === acceptedHash.current) return;
+      const targetIndex = Number.isInteger(window.history.state?.gndIndex)
+        ? window.history.state.gndIndex
+        : historyIndex.current + 1;
+      const delta = targetIndex - historyIndex.current;
+      const accept = () => {
+        historyIndex.current = targetIndex;
+        window.history.replaceState(
+          { ...window.history.state, gndIndex: targetIndex },
+          "",
+        );
+        applyRoute();
+      };
+      if (allowHistory.current) {
+        allowHistory.current = false;
+        accept();
+        return;
+      }
+      let proceeded = false;
+      guarded(() => {
+        proceeded = true;
+        const proceed = () => {
+          if (window.location.hash === target) accept();
+          else {
+            allowHistory.current = true;
+            if (delta) window.history.go(delta);
+            else {
+              window.history.replaceState(window.history.state, "", target);
+              accept();
+            }
+          }
+        };
+        if (restoringHistory.current) afterHistoryRestore.current = proceed;
+        else proceed();
+      });
+      if (!proceeded) {
+        // Return to the existing entry; never overwrite the Back destination.
+        if (delta) {
+          restoringHistory.current = true;
+          window.history.go(-delta);
+        } else
+          window.history.replaceState(
+            window.history.state,
+            "",
+            acceptedHash.current,
+          );
+      }
     };
     window.addEventListener("popstate", restore);
     window.addEventListener("hashchange", restore);
@@ -137,7 +264,7 @@ export default function App() {
     return () => window.clearTimeout(t);
   }, [toast]);
   useEffect(() => {
-    if (!alarm.enabled) return;
+    if (!alarm.enabled || resetFailure) return;
     const timer = window.setInterval(() => {
       const now = new Date();
       if (!alarm.days.includes(now.getDay())) return;
@@ -162,23 +289,19 @@ export default function App() {
       }
     }, 15000);
     return () => window.clearInterval(timer);
-  }, [alarm]);
+  }, [alarm, resetFailure]);
   function navigate(next: Screen) {
-    setModal(null);
-    setScreen(next);
-    window.history.pushState(null, "", `#/${next}`);
-    if (next === "library") setLibraryTab("All");
+    go(routeHash({ screen: next }));
   }
   function openProduct(next: Product) {
-    setProduct(next);
-    setScreen("product");
-    setModal(null);
-    window.history.pushState(null, "", `#/product/${next.slug}`);
+    go(routeHash({ screen: "product", id: next.slug }));
   }
   function read(d?: Devotional) {
-    setReturnScreen(screen === "reader" ? "home" : screen);
-    setReading(d ?? todayFor(audience));
-    setScreen("reader");
+    go(routeHash({ screen: "reader", id: (d ?? todayFor(audience)).id }));
+  }
+  function closeReader() {
+    if (window.history.state?.gndFrom) window.history.back();
+    else navigate("home");
   }
   function toggleSave(id: string) {
     setSaved((old) =>
@@ -196,23 +319,17 @@ export default function App() {
     setModal(kind);
   }
   function openLibrary(tab = "All") {
-    setLibraryTab(tab);
-    setScreen("library");
-    setModal(null);
+    go(routeHash({ screen: "library", filter: tab }));
   }
   function openBible(ref?: string) {
-    setBibleRef(ref);
-    setScreen("bible");
-    setModal(null);
+    go(routeHash({ screen: "bible", reference: ref }));
   }
   async function copyLink() {
     try {
-      await copyText("https://goodnews-daily-connect.expo.app/");
+      await copyText(appShareUrl);
       setToast("GoodNews link copied");
     } catch {
-      setSystemNotice(
-        "Select and copy this link: https://goodnews-daily-connect.expo.app/",
-      );
+      setSystemNotice(`Select and copy this link: ${appShareUrl}`);
     }
   }
   const dayKey = (date: Date) =>
@@ -237,11 +354,43 @@ export default function App() {
     { id: "store", label: "Store", Icon: Store },
     { id: "profile", label: "Profile", Icon: User },
   ] as const;
+  if (resetFailure)
+    return (
+      <main className="recovery-screen narrow-screen" role="alert">
+        <h1>Local data needs your attention</h1>
+        <p>{resetFailure}</p>
+        <div className="modal-actions">
+          <button className="primary-button" onClick={resetData}>
+            Retry clearing local data
+          </button>
+          <button
+            className="glass-button"
+            onClick={() => window.location.reload()}
+          >
+            Reload remaining data
+          </button>
+        </div>
+      </main>
+    );
   return (
     <>
-      <main id="main-content" key={screen} className="page-transition">
+      {storageProblem && (
+        <aside className="storage-warning" role="status">
+          <p>{storageProblem}</p>
+          <button className="glass-button" onClick={() => openModal("privacy")}>
+            Privacy & data
+          </button>
+        </aside>
+      )}
+      <main
+        id="main-content"
+        tabIndex={-1}
+        key={screen}
+        className="page-transition"
+      >
         {screen === "home" && (
           <Home
+            readerName={name}
             audience={audience}
             onAudience={setAudience}
             onRead={read}
@@ -260,7 +409,7 @@ export default function App() {
         {screen === "reader" && (
           <Reader
             devotional={reading}
-            onBack={() => setScreen(returnScreen)}
+            onBack={closeReader}
             saved={saved.includes(reading.id)}
             onSave={() => toggleSave(reading.id)}
             completed={completed.includes(reading.id)}
@@ -287,6 +436,7 @@ export default function App() {
             dark={dark}
             onProfile={() => navigate("profile")}
             initialTab={libraryTab}
+            onTabChange={openLibrary}
             onNotes={() => navigate("notes")}
             onBible={() => openBible()}
             onAlarm={() => openModal("alarm")}
@@ -465,7 +615,7 @@ export default function App() {
             <button onClick={() => openModal("alarm")}>
               <Volume2 size={20} />
               <span>
-                Scheduled Prayer Reminders
+                In-app prayer reminders
                 <small>
                   {alarm.enabled ? `Every ${alarm.interval} minutes` : "Off"}
                 </small>
@@ -489,69 +639,12 @@ export default function App() {
           </div>
         </Modal>
       )}
-      {modal === "privacy" && (
-        <Modal title="Privacy & security" onClose={() => setModal(null)}>
-          <div className="privacy-copy">
-            <h3>Your private local journey</h3>
-            <p>
-              Your reader name, notes, saved readings, highlights, and
-              preferences stay in this browser’s local storage.
-            </p>
-            <p>
-              This local replica does not create an online account or sync your
-              personal information. External Bible passages are requested only
-              when you open a passage that is not bundled.
-            </p>
-            <button
-              className="glass-button"
-              onClick={() => {
-                const blob = new Blob(
-                  [
-                    JSON.stringify(
-                      { name, notes, saved, completed, readingDays, alarm },
-                      null,
-                      2,
-                    ),
-                  ],
-                  { type: "application/json" },
-                );
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = "goodnews-local-journey.json";
-                a.click();
-                setTimeout(() => URL.revokeObjectURL(url), 1000);
-                setToast("Your journey export is ready");
-              }}
-            >
-              <Download size={17} /> Export my journey
-            </button>
-          </div>
-        </Modal>
-      )}
-      {modal === "account" && (
-        <Modal title="Your GoodNews account" onClose={() => setModal(null)}>
-          <img className="modal-object" src="/assets/profile.png" alt="" />
-          <h3>Your reading journey starts here.</h3>
-          <p className="muted">
-            This local edition saves your journey on this device. Online sign-in
-            is available through the original GoodNews app.
-          </p>
-          <button
-            className="primary-button full-width"
-            onClick={() => openModal("name")}
-          >
-            Continue as a local reader
-          </button>
-          <a
-            className="glass-button full-width"
-            href="https://goodnews-daily-connect.expo.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Open original app <Link size={15} />
-          </a>
-        </Modal>
+      {modal && ["privacy", "help", "about"].includes(modal) && (
+        <ReaderInformation
+          kind={modal as InformationKind}
+          onClose={() => setModal(null)}
+          onReset={resetData}
+        />
       )}
       {modal === "partner" && (
         <PartnershipModal onClose={() => setModal(null)} />
@@ -560,11 +653,11 @@ export default function App() {
         <ShoppingBag onClose={() => setModal(null)} onProduct={openProduct} />
       )}
       {modal === "journey" && (
-        <Modal title="Your outreach journey" onClose={() => setModal(null)}>
+        <Modal title="Your reading journey" onClose={() => setModal(null)}>
           <div className="journey-banner">
             <Share2 size={40} />
-            <h3>Keep the GoodNews moving.</h3>
-            <p>Every conversation can be a new beginning.</p>
+            <h3>Your time in the Word.</h3>
+            <p>Readings you have completed and saved in this browser.</p>
           </div>
           <div className="journey-counts">
             <div>
@@ -608,7 +701,7 @@ export default function App() {
           </p>
           <div className="share-link">
             <Link size={18} />
-            <span>goodnews-daily-connect.expo.app</span>
+            <span>{appShareUrl}</span>
           </div>
           <button
             className="primary-button full-width"
@@ -624,7 +717,7 @@ export default function App() {
                   await navigator.share({
                     title: "GoodNews Daily",
                     text: "A little GoodNews for your day.",
-                    url: "https://goodnews-daily-connect.expo.app/",
+                    url: appShareUrl,
                   });
                 } catch (e) {
                   if (!(e instanceof Error && e.name === "AbortError"))
@@ -638,8 +731,8 @@ export default function App() {
             </button>
           )}
           <p className="small muted centered">
-            Use the sharing link in this web edition. NFC phone tapping requires
-            the native app.
+            Share a link to this app. Phone-to-phone NFC sharing is not
+            available in this edition.
           </p>
           {systemNotice && <p role="status">{systemNotice}</p>}
         </Modal>
@@ -677,7 +770,7 @@ export default function App() {
             Every <strong>{draftAlarm.interval}</strong> min
           </div>
           <label className="toggle-row">
-            Alarm enabled
+            Reminder enabled
             <input
               type="checkbox"
               role="switch"
@@ -746,6 +839,7 @@ export default function App() {
           <label className="field-label">
             Label
             <input
+              maxLength={120}
               value={draftAlarm.label}
               onChange={(e) =>
                 setDraftAlarm({ ...draftAlarm, label: e.target.value })

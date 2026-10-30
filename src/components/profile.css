@@ -439,3 +439,63 @@ body[data-theme="dark"] .profile-tray-top > button {
     font-size: 42px;
   }
 }
+
+.profile-local-note {
+  max-width: 36rem;
+  margin: -12px auto 24px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.profile-card h1 {
+  overflow-wrap: anywhere;
+}
+.profile-setting-list button {
+  min-height: 64px;
+}
+
+/* Profile shortcuts stay in the page flow so they never cover the journal/settings. */
+.profile-tray,
+.profile-tray.collapsed {
+  position: static;
+  transform: none;
+  width: 100%;
+  max-width: 100%;
+  margin: 20px 0 0;
+  padding: 12px;
+  border-radius: 22px;
+  background: var(--surface);
+}
+.profile-tray.collapsed .profile-tray-top > span {
+  display: block;
+}
+.profile-intro {
+  height: 76px;
+  letter-spacing: 0.04em;
+}
+.profile-counts > div {
+  min-width: 0;
+  flex: 1;
+  padding-inline: 6px;
+}
+.profile-counts img {
+  flex: 0 0 auto;
+  max-width: 34%;
+}
+.edit-name {
+  min-height: 44px;
+}
+@media (max-width: 600px) {
+  .profile-card h1 {
+    font-size: 36px;
+    line-height: 1.15;
+  }
+  .profile-counts img {
+    width: 98px;
+    height: 98px;
+  }
+  .profile-shortcut-items {
+    padding-bottom: 8px;
+  }
+}

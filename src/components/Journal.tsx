@@ -1,5 +1,5 @@
 import { ArrowLeft, Plus, Search, Trash2, BookOpen } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Modal } from "./Modal";
 export interface Note {
   id: string;
@@ -19,6 +19,41 @@ export default function Journal({
   const [query, setQuery] = useState("");
   const [editing, setEditing] = useState<Note | null>(null);
   const [confirm, setConfirm] = useState(false);
+  const [discard, setDiscard] = useState(false);
+  const pendingNavigation = useRef<(() => void) | null>(null);
+  const original = editing
+    ? notes.find((note) => note.id === editing.id)
+    : undefined;
+  const dirty =
+    !!editing &&
+    (editing.title !== (original?.title ?? "") ||
+      editing.body !== (original?.body ?? ""));
+  useEffect(() => {
+    if (!dirty) return;
+    const beforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    const beforeNavigate = (event: Event) => {
+      event.preventDefault();
+      pendingNavigation.current = (
+        event as CustomEvent<{ proceed: () => void }>
+      ).detail.proceed;
+      setDiscard(true);
+    };
+    window.addEventListener("beforeunload", beforeUnload);
+    window.addEventListener("gnd-before-navigate", beforeNavigate);
+    return () => {
+      window.removeEventListener("beforeunload", beforeUnload);
+      window.removeEventListener("gnd-before-navigate", beforeNavigate);
+    };
+  }, [dirty]);
+  function closeEditor() {
+    setEditing(null);
+    setConfirm(false);
+    setDiscard(false);
+    pendingNavigation.current = null;
+  }
   function save() {
     if (!editing || (!editing.title.trim() && !editing.body.trim())) return;
     const next = {
@@ -27,7 +62,7 @@ export default function Journal({
       date: new Date().toISOString(),
     };
     onChange([next, ...notes.filter((n) => n.id !== next.id)]);
-    setEditing(null);
+    closeEditor();
   }
   return (
     <section className="narrow-screen journal-screen">
@@ -113,15 +148,16 @@ export default function Journal({
       {editing && (
         <Modal
           title="Your reflection"
-          onClose={() => {
-            setEditing(null);
-            setConfirm(false);
+          onBeforeClose={() => {
+            if (!dirty) return true;
+            setDiscard(true);
+            return false;
           }}
+          onClose={closeEditor}
         >
           <label className="field-label">
             Title
             <input
-              autoFocus
               value={editing.title}
               placeholder="Give your reflection a title"
               maxLength={150}
@@ -156,6 +192,33 @@ export default function Journal({
               Save note
             </button>
           </div>
+          {discard && (
+            <div className="data-confirm" role="alert">
+              <strong>Keep your unfinished reflection?</strong>
+              <p>Your changes have not been saved.</p>
+              <div className="modal-actions">
+                <button
+                  className="glass-button"
+                  onClick={() => {
+                    setDiscard(false);
+                    pendingNavigation.current = null;
+                  }}
+                >
+                  Keep editing
+                </button>
+                <button
+                  className="glass-button danger-text"
+                  onClick={() => {
+                    const proceed = pendingNavigation.current;
+                    closeEditor();
+                    proceed?.();
+                  }}
+                >
+                  Discard changes
+                </button>
+              </div>
+            </div>
+          )}
           {confirm && (
             <div className="delete-confirm">
               <p>Delete this note from your journal?</p>
@@ -169,8 +232,7 @@ export default function Journal({
                 className="glass-button danger-text"
                 onClick={() => {
                   onChange(notes.filter((n) => n.id !== editing.id));
-                  setConfirm(false);
-                  setEditing(null);
+                  closeEditor();
                 }}
               >
                 Delete note

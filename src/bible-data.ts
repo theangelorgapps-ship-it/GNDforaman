@@ -96,10 +96,16 @@ export interface BibleReference {
 export function parseBibleReference(value: string): BibleReference | null {
   const match = value
     .trim()
+    // Citation labels identify the quoted translation, not the reader's version.
+    .replace(/\s*\([a-z][a-z0-9]{1,9}\)$/i, "")
     .replace(/[–—]/g, "-")
     .match(/^(.+?)\s*(\d{1,3})(?:\s*:\s*(\d{1,3})(?:\s*-\s*(\d{1,3}))?)?$/);
   if (!match) return null;
-  const name = match[1].trim().toLowerCase().replace(/\./g, "");
+  const name = match[1]
+    .trim()
+    .toLowerCase()
+    .replace(/\./g, "")
+    .replace(/\s+/g, " ");
   const book = BIBLE_BOOKS.find(
     (item) => item.name.toLowerCase() === name || item.aliases?.includes(name),
   );
@@ -115,6 +121,46 @@ export function parseBibleReference(value: string): BibleReference | null {
   )
     return null;
   return { book: book.name, chapter, verse, endVerse };
+}
+export type HighlightColor = "yellow" | "blue" | "pink";
+export interface BibleHighlight {
+  book: string;
+  chapter: number;
+  verse: number;
+  version: BibleVersion;
+  text: string;
+  color: HighlightColor;
+}
+export function restoreBibleHighlights(
+  value: unknown,
+): Record<string, BibleHighlight> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  const restored: Record<string, BibleHighlight> = {};
+  for (const raw of Object.values(value)) {
+    if (!raw || typeof raw !== "object" || Array.isArray(raw)) continue;
+    const item = raw as Partial<BibleHighlight>;
+    const book = BIBLE_BOOKS.find((book) => book.name === item.book);
+    if (
+      !book ||
+      !Number.isInteger(item.chapter) ||
+      item.chapter! < 1 ||
+      item.chapter! > book.chapters ||
+      !Number.isInteger(item.verse) ||
+      item.verse! < 1 ||
+      typeof item.text !== "string" ||
+      !item.text.trim() ||
+      !["asv", "web"].includes(item.version ?? "") ||
+      !["yellow", "blue", "pink"].includes(item.color ?? "")
+    )
+      continue;
+    const chapterKey = `${item.version}:${item.book}:${item.chapter}`;
+    const offline = OFFLINE_CHAPTERS[chapterKey];
+    if (offline && !offline.some((verse) => verse.verse === item.verse))
+      continue;
+    const key = `${chapterKey}:${item.verse}`;
+    restored[key] = item as BibleHighlight;
+  }
+  return restored;
 }
 export const OFFLINE_CHAPTERS: Record<string, BibleVerse[]> = {
   "asv:John:2": [

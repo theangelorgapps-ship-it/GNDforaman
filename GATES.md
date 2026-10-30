@@ -29,3 +29,5 @@ Scope: Recreate the supplied GoodNews Daily Connect app in a new local TypeScrip
 ## Active refinement ledger
 
 The current browser-annotation and motion work is tracked in `gates/annotation-motion.md`.
+
+The MVP frontend and app-store readiness work is tracked in `gates/mvp-launch-readiness.md`.

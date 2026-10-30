@@ -2,7 +2,7 @@ import type { Audience, Devotional } from "./types";
 export const devotionals: Devotional[] = [
   {
     id: "dont-sleep",
-    title: "DON’T SLEEP!",
+    title: "Don’t Sleep!",
     audience: "Adults",
     date: "2026-10-29",
     image: "/assets/october.png",
@@ -23,7 +23,7 @@ export const devotionals: Devotional[] = [
   },
   {
     id: "i-am-in-charge",
-    title: "I AM IN CHARGE",
+    title: "I Am in Charge",
     audience: "Teens",
     date: "2026-10-29",
     image: "/assets/teens.png",
@@ -65,6 +65,20 @@ export const devotionals: Devotional[] = [
 ];
 export const todayFor = (audience: Audience) =>
   devotionals.find((d) => d.audience === audience) ?? devotionals[0]!;
+export function readingBadge(devotional: Devotional, today = new Date()) {
+  const localDate = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, "0"),
+    String(today.getDate()).padStart(2, "0"),
+  ].join("-");
+  if (devotional.audience !== "Kids" && devotional.date === localDate)
+    return "Today’s reading";
+  const date = new Date(`${devotional.date}T12:00:00`).toLocaleDateString(
+    "en-GB",
+    { day: "numeric", month: "short", year: "numeric" },
+  );
+  return `${devotional.audience === "Kids" ? "Sample reading" : "Latest reading"} · ${date}`;
+}
 export const storyTitles = [
   "We’re igniting young minds with enthusiasm in Sunday School",
   "YouTube Series 2, 10 Questions With…",

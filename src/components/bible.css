@@ -15,8 +15,8 @@
   z-index: 20;
   background: rgba(248, 249, 252, 0.82);
   border-bottom: 1px solid rgba(225, 229, 238, 0.48);
-  backdrop-filter: blur(22px);
   -webkit-backdrop-filter: blur(22px);
+  backdrop-filter: blur(22px);
 }
 .bible-heading-controls,
 .bible-header-actions {
@@ -156,8 +156,8 @@
   width: min(454px, calc(100vw - 40px));
   padding: 11px 16px 13px;
   background: rgba(250, 252, 255, 0.28);
-  backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: 25px;
   box-shadow: 0 4px 20px #7c8aab0b;
@@ -260,16 +260,26 @@
 .bible-audio-active {
   color: #2467e8 !important;
 }
+.bible-translation-notice {
+  max-width: 780px;
+  margin: 12px auto 0;
+  padding: 0 20px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
 .bible-selection-bar {
   position: fixed;
   bottom: 224px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 31;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 44px);
   align-items: center;
-  gap: 7px;
-  padding: 9px 12px;
+  gap: 4px;
+  padding: 8px;
+  max-width: calc(100vw - 16px);
   background: var(--surface, #fff);
   border: 1px solid var(--border, #e5e7ed);
   border-radius: 22px;
@@ -277,19 +287,21 @@
   white-space: nowrap;
 }
 .bible-selection-bar > span {
+  grid-column: 1 / -1;
+  text-align: center;
   font-size: 11px;
   margin-right: 5px;
 }
 .bible-selection-bar .icon-button {
-  width: 30px;
-  height: 30px;
-  min-width: 30px;
-  min-height: 30px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   padding: 0;
 }
 .bible-color {
-  width: 27px;
-  height: 27px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -685,8 +697,8 @@ body[data-theme="dark"] .bible-highlight-pink {
   }
   .bible-selection-bar {
     bottom: 224px;
-    gap: 5px;
-    padding: 8px 10px;
+    gap: 4px;
+    padding: 8px;
   }
   .bible-selection-low {
     bottom: 165px;
@@ -735,14 +747,6 @@ body[data-theme="dark"] .bible-highlight-pink {
   }
   .bible-selection-bar > span {
     margin-right: 1px;
-  }
-  .bible-color {
-    width: 24px;
-    height: 24px;
-  }
-  .bible-selection-bar .icon-button {
-    width: 27px;
-    min-width: 27px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

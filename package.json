@@ -8,7 +8,7 @@
     "typecheck": "tsc --noEmit",
     "build": "tsc --noEmit && vite build && node scripts/verify-build.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 5173 --strictPort",
-    "test": "node --experimental-strip-types scripts/test-shop.mjs && node --experimental-strip-types scripts/test-appearance.mjs",
+    "test": "node --experimental-strip-types scripts/test-shop.mjs && node --experimental-strip-types scripts/test-appearance.mjs && node --experimental-strip-types scripts/test-local-data.mjs && node --experimental-strip-types scripts/test-reading.mjs",
     "deploy": "npm run build && wrangler pages deploy dist --project-name gnd-test --branch codex/goodnews-local",
     "catalog:sync": "python3 scripts/sync-catalog.py"
   },
